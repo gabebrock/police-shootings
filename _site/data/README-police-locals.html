@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Gabriel Brock | Fa23 | Harvard University">
 
-<title>Police Shootings - A Case Study on the Relationship between Police Residence and Fatal Police Shootings</title>
+<title>Police Shootings – readme-police-locals</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,7 +60,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -71,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Police Shootings</span>
     </a>
   </div>
@@ -82,15 +81,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./background.html" rel="" target="">
+    <a class="nav-link" href="../background.html" rel="" target="">
  <span class="menu-text">Background</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html" rel="" target="">
+    <a class="nav-link" href="../data.html" rel="" target="">
  <span class="menu-text">Data</span></a>
   </li>  
 </ul>
@@ -109,55 +108,35 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#proposal" id="toc-proposal" class="nav-link active" data-scroll-target="#proposal">Proposal</a>
-  <ul class="collapse">
-  <li><a href="#explanatory-variables" id="toc-explanatory-variables" class="nav-link" data-scroll-target="#explanatory-variables">Explanatory Variables</a></li>
-  </ul></li>
-  <li><a href="#project-thoughts" id="toc-project-thoughts" class="nav-link" data-scroll-target="#project-thoughts">Project thoughts</a></li>
+  <li><a href="#police-residence" id="toc-police-residence" class="nav-link active" data-scroll-target="#police-residence">Police Residence</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">A Case Study on the Relationship between Police Residence and Fatal Police Shootings</h1>
-</div>
-
-<div>
-  <div class="description">
-    Gabriel Brock | Fa23 | Harvard University
-  </div>
-</div>
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<section id="proposal" class="level2">
-<h2 class="anchored" data-anchor-id="proposal">Proposal</h2>
-<p>This case study investigates the intricate relationship between police residence and fatal police shootings, employing a data science approach to uncover insights and patterns within the context of law enforcement agencies. Focused on police officers residing in the cities they serve, the study examines whether this residency factor correlates with the incidence of fatal police shootings. The data set, spanning the years 2015 to 2023, is composed of information on police agencies involved in at least one fatal shooting, and is subjected to rigorous analysis using advanced statistical methods and machine learning techniques.</p>
-<p>This study aims to discern patterns, trends, and potential biases associated with the geographical proximity of police officers to the communities they police. A comprehensive exploration of demographic, socioeconomic, and policing variables contributes to a nuanced understanding of the factors influencing fatal police shootings. Furthermore, the study seeks to identify any disparities in incident rates based on officers’ residency status, considering variables such as race, community demographics, and departmental policies.</p>
-<p>The insights derived from this case study bear substantial implications for informing public policy, refining police training protocols, and strengthening community relations. By unraveling the nuanced dynamics surrounding police residence and fatal police shootings, this case study aims to provide evidence-based recommendations to enhance transparency, accountability, and trust between law enforcement agencies and the communities they serve. In doing so, it contributes to the broader discourse on police reform, fostering a data-driven approach to address critical issues and promote safer, more resilient communities.</p>
-<section id="explanatory-variables" class="level3">
-<h3 class="anchored" data-anchor-id="explanatory-variables">Explanatory Variables</h3>
+<section id="police-residence" class="level1">
+<h1>Police Residence</h1>
+<p>This folder contains data behind the story <a href="http://fivethirtyeight.com/datalab/most-police-dont-live-in-the-cities-they-serve/">Most Police Don’t Live In The Cities They Serve</a>.</p>
+<p>Includes the cities with the 75 largest police forces, with the exception of Honolulu for which data is not available. All calculations are based on data from the U.S. Census.</p>
+<p>The Census Bureau numbers are potentially going to differ from other counts for three reasons:</p>
+<ol type="1">
+<li>The census category for police officers also includes sheriffs, transit police and others who might not be under the same jurisdiction as a city’s police department proper. The census category won’t include private security officers.</li>
+<li>The census data is estimated from 2006 to 2010; police forces may have changed in size since then.</li>
+<li>There is always a margin of error in census numbers; they are estimates, not complete counts.</li>
+</ol>
+<p><strong>How to read <code>police-locals.csv</code></strong></p>
 <table class="table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 66%">
+<col style="width: 27%">
+<col style="width: 72%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Name</th>
-<th>Description</th>
+<th>Header</th>
+<th>Definition</th>
 </tr>
 </thead>
 <tbody>
@@ -195,85 +174,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p><strong>Incident Information</strong></p>
-<table class="table">
-<colgroup>
-<col style="width: 32%">
-<col style="width: 67%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>id</code></td>
-<td>A unique identifier for each fatal police shooting incident.</td>
-</tr>
-<tr class="even">
-<td><code>date</code></td>
-<td>The date of the fatal shooting.</td>
-</tr>
-<tr class="odd">
-<td><code>body_camera</code></td>
-<td>Whether news reports have indicated an officer was wearing a body camera and it may have recorded some portion of the incident.</td>
-</tr>
-<tr class="even">
-<td><code>city</code></td>
-<td>The municipality where the fatal shooting took place</td>
-</tr>
-<tr class="odd">
-<td><code>county</code></td>
-<td>County where the fatal shooting took place.</td>
-</tr>
-<tr class="even">
-<td><code>state</code></td>
-<td>The two-letter postal code abbreviation for the state in which the fatal shooting took place.</td>
-</tr>
-<tr class="odd">
-<td><code>latitude</code></td>
-<td>The latitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses. Please note that the precision and accuracy of incident coordinates varies depending on the precision of the input address which is often only available at the block level.</td>
-</tr>
-<tr class="even">
-<td><code>longitude</code></td>
-<td>The longitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Agency Information</strong></p>
-<table class="table">
-<thead>
-<tr class="header">
-<th></th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>id</code></td>
-<td>Department Database Id</td>
-</tr>
-<tr class="even">
-<td><code>name</code></td>
-<td>Department Name</td>
-</tr>
-<tr class="odd">
-<td><code>state</code></td>
-<td>State in which the agency is located.</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="project-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to…</p>
-<ul>
-<li>Political Extremism</li>
-<li>Black American Opinion</li>
-</ul>
+<p><strong>Note:</strong> When a cell contains <code>**</code> it means that there are fewer than 100 police officers of that race serving that city.</p>
 
 
 </section>

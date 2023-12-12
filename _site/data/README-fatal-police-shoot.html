@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Police Shootings – readme-fatal-police-shoot</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Police Shootings</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../background.html" rel="" target="">
+ <span class="menu-text">Background</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data.html" rel="" target="">
+ <span class="menu-text">Data</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#fatal-force-database-v2" id="toc-fatal-force-database-v2" class="nav-link active" data-scroll-target="#fatal-force-database-v2">Fatal Force Database (v2)</a>
+  <ul class="collapse">
+  <li><a href="#about-the-data" id="toc-about-the-data" class="nav-link" data-scroll-target="#about-the-data">About the data</a>
+  <ul class="collapse">
+  <li><a href="#major-data-schema-changes-between-version-1-and-version-2" id="toc-major-data-schema-changes-between-version-1-and-version-2" class="nav-link" data-scroll-target="#major-data-schema-changes-between-version-1-and-version-2">Major data schema changes between version 1 and version 2</a></li>
+  <li><a href="#death-records" id="toc-death-records" class="nav-link" data-scroll-target="#death-records">Death Records</a></li>
+  <li><a href="#agencies" id="toc-agencies" class="nav-link" data-scroll-target="#agencies">Agencies</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="fatal-force-database-v2" class="level1">
+<h1>Fatal Force Database (v2)</h1>
+<section id="about-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="about-the-data">About the data</h2>
+<p>Each day researchers at The Post identify and manually record data for fatal police shootings in the United States. Each record requires at least two sources and must be approved by our editors before being publicly released.</p>
+<p>Data about each fatal shooting is provided via two comma-separated value (CSV) files:</p>
+<p><strong>Death Record</strong> data for each victim and incident is included in <code>/v2/fatal-police-shootings-data.csv</code>.</p>
+<p>New in v2 is a second <strong>Agencies</strong> csv, <code>/v2/fatal-police-shootings-agencies.csv</code>, which contains data for police agencies involved in at least one fatal police shooting since 2015. The agencies csv has a field called <code>agency_ids</code>, which can be used to associate each death record with the agencies involved.</p>
+<p>To enable joining this dataset with other federal law enforcement datasets, in 2022 The Post undertook an effort to increase the coverage of federal Originating Agency Identifier (ORI) codes recorded for agencies in the database. Using agency data from the FBI and Department of Justice, reporters did a combination of automated and manual name and ORI code matching to fill in missing ORI code data. They also standardized department names. Agency naming, organization, hierarchy and classification varies from state to state. For this reason, sub-agencies and local troops, regions and posts have been aggregated into their parent agencies, meaning that in some cases an individual agency will have multiple associated ORI codes. For instance, a state police department may have the ORI codes of multiple barracks associated with it.</p>
+<section id="major-data-schema-changes-between-version-1-and-version-2" class="level3">
+<h3 class="anchored" data-anchor-id="major-data-schema-changes-between-version-1-and-version-2">Major data schema changes between version 1 and version 2</h3>
+<p>The Post created version 2 of this dataset in 2022 to refine and better define data categories, as well as improve documentation about how the data is obtained and classified. In addition to the altering of fields and formatting, a separate agencies dataset has been added which includes information on the law enforcement agencies which have been involved in at least one fatal shooting since 2015.</p>
+<p><strong>High-level summary of major changes to the data schema introduced in version 2:</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>V1 field</th>
+<th>V2 Field</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>manner_of_death</code></td>
+<td>field removed</td>
+<td>This database tracks fatal police shootings. Other weapons (e.g.&nbsp;a Taser) may be involved in the encounter, but the manner of death for victims in these records is always a police shooting. Thus, the field was removed.</td>
+</tr>
+<tr class="even">
+<td><code>race</code> (single)</td>
+<td><code>race</code> (multiple)</td>
+<td>Field converted from a single option to a list of options. Previously multi-racial or multi-ethnic victims were tracked using the <code>Other</code> option. This update allows us to more accurately categorize shootings of individuals with multiple ethnic and racial backgrounds.</td>
+</tr>
+<tr class="odd">
+<td>–</td>
+<td><code>race_source</code></td>
+<td>This field was added to identify the source from which race was determined, which can range from court documents to a researchers’ assessment based on a victim’s photograph.</td>
+</tr>
+<tr class="even">
+<td><code>threat_level</code></td>
+<td><code>threat_type</code></td>
+<td>Renamed field to more accurately portray data we have collected, while removing implication of hierarchy.</td>
+</tr>
+<tr class="odd">
+<td><code>signs_of_mental_illness</code></td>
+<td><code>was_mental_illness_related</code></td>
+<td>Renamed field to more accurately portray data we have collected when news accounts or police reports reflect a victim may have had a history of mental health issues or was experiencing mental distress at the time of the shooting.</td>
+</tr>
+<tr class="even">
+<td><code>flee</code></td>
+<td><code>flee_status</code></td>
+<td>Renamed field to more accurately portray data we collected</td>
+</tr>
+<tr class="odd">
+<td><code>armed</code></td>
+<td><code>armed_with</code></td>
+<td>This field originally included the specific weapon if the victim had one and otherwise indicated <code>unarmed</code>, <code>undetermined</code>, or <code>unknown</code>. It has been updated to use federal classifications based on NIBRS, the national incident-level crime reporting system. <code>toy</code> category has been renamed to <code>replica</code>.</td>
+</tr>
+<tr class="even">
+<td><code>is_geocoding_exact</code></td>
+<td>field removed</td>
+<td>Location information for an incident is often only available at the block level (eg. 100 Block of Main St). Precision and accuracy of geocoded location information was not sufficiently represented by this field.</td>
+</tr>
+<tr class="odd">
+<td>–</td>
+<td><code>location_precision</code></td>
+<td>New field to indicate the precision level of the location data which was geocoded to generate the record’s coordinate data.</td>
+</tr>
+<tr class="even">
+<td>–</td>
+<td><code>agency_ids</code></td>
+<td>List of agency ids to enable joining with the agencies csv.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="death-records" class="level3">
+<h3 class="anchored" data-anchor-id="death-records">Death Records</h3>
+<p><strong>File:</strong> <code>/v2/fatal-police-shootings-data.csv</code></p>
+<p><strong>Summary:</strong> Death record data about each incident and victim. The file can be downloaded at this URL. Victim information is obtained from any available recordings of the incident, news accounts, court records and/or official statements.</p>
+<p><strong>Fields:</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 40%">
+<col style="width: 55%">
+<col style="width: 1%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Description</th>
+<th>Type</th>
+<th>Example value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Incident information</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>id</code></td>
+<td>A unique identifier for each fatal police shooting incident.</td>
+<td>number</td>
+<td><code>2</code></td>
+</tr>
+<tr class="odd">
+<td><code>date</code></td>
+<td>The date of the fatal shooting.</td>
+<td>string <br> <code>YYYY-MM-DD</code></td>
+<td><code>2020-06-25</code></td>
+</tr>
+<tr class="even">
+<td><code>body_camera</code></td>
+<td>Whether news reports have indicated an officer was wearing a body camera and it may have recorded some portion of the incident.</td>
+<td>boolean <code>True</code>/ <code>False</code></td>
+<td><code>True</code></td>
+</tr>
+<tr class="odd">
+<td><code>city</code></td>
+<td>The municipality where the fatal shooting took place</td>
+<td>string</td>
+<td><code>New Orleans</code></td>
+</tr>
+<tr class="even">
+<td><code>county</code></td>
+<td>County where the fatal shooting took plce.</td>
+<td>string</td>
+<td><code>Brown</code></td>
+</tr>
+<tr class="odd">
+<td><code>state</code></td>
+<td>The two-letter postal code abbreviation for the state in which the fatal shooting took place.</td>
+<td>string</td>
+<td><code>LA</code></td>
+</tr>
+<tr class="even">
+<td><code>latitude</code></td>
+<td>The latitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses. Please note that the precision and accuracy of incident coordinates varies depending on the precision of the input address which is often only available at the block level.</td>
+<td>decimal number</td>
+<td><code>47.246826</code></td>
+</tr>
+<tr class="odd">
+<td><code>longitude</code></td>
+<td>The longitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses.</td>
+<td>decimal number</td>
+<td><code>-123.121592</code></td>
+</tr>
+<tr class="even">
+<td><code>location_precision</code></td>
+<td>Indicates the precision level of the input which was geocoded to generate the coordinate data.</td>
+<td>string <br><br> options:<br>-<code>address</code>: Specific address, eg: <code>1 Main St.</code><br>-<code>poi_small</code>: A small point of interest, eg: <code>Jim's Pizza</code>.<br>-<code>intersection</code>: Intersection of two roads, eg: <code>6th Avenue and Izabel Street</code> <br>-<code>poi_large</code>: A large point of interest, eg: <code>Central Mall</code>. <br>-<code>block</code>: Block level address, eg: <code>100 Block of Main St.</code><br>-<code>road</code>: Road name, eg: <code>Glenwood Drive</code> <br>-<code>highway</code>: Highway name, eg: <code>Georgia Highway 11</code><br>-<code>not_available</code>: Location was entered before current methodology was established.</td>
+<td><code>block</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Victim information</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>name</code></td>
+<td>The name of the victim.</td>
+<td>string</td>
+<td><code>John Doe</code></td>
+</tr>
+<tr class="odd">
+<td><code>age</code></td>
+<td>The age of the victim at the time of the incident.</td>
+<td>number</td>
+<td><code>23</code></td>
+</tr>
+<tr class="even">
+<td><code>gender</code></td>
+<td>The gender of the victim. The Post identifies victims by the gender they identified with if reports indicate that it differs from their biological sex.</td>
+<td>string <br><br> options:<br>- <code>male</code><br>- <code>female</code><br>- <code>non-binary</code><br>- <code>--</code>: Unknown</td>
+<td><code>male</code></td>
+</tr>
+<tr class="odd">
+<td><code>race</code></td>
+<td>The race and ethnicity (where known) of the victim. May contain multiple values to accommodate for multi-racial or several racial and ethnic identifications. Race has been included where news accounts, police reports or other official documents specifically mention a victim’s race or where researchers were able to make a visual determination on racial identification through photos. With the introduction of v2 of the database, the Post has began tracking multiple race and ethnicity designations; prior to 2021, only one race or ethnicity was assigned to most victims.</td>
+<td>string <br><br> options:<br>- <code>W</code>: White<br>- <code>B</code>: Black<br>- <code>A</code>: Asian heritage<br>- <code>N</code>: Native American<br>- <code>H</code>: Hispanic<br>- <code>O</code>: Other<br>- <code>--</code>: Unknown</td>
+<td><code>"B;H"</code></td>
+</tr>
+<tr class="even">
+<td><code>race_source</code></td>
+<td>Sourcing methodology for victim race data.</td>
+<td>string <br><br> options: <br>- <code>public_record</code><br>- <code>clip</code><br>- <code>photo</code><br>- <code>other</code><br>- <code>not_available</code>: Indicates older records which have <code>race</code> populated but The Post does not have details on the methodology because it was collected before the current structure was introduced. <br>- <code>undetermined</code>: When The Post’s race research avenues have been exhausted and race is still unknown, this indicates that race is still unknown, but research is complete.<br>- <code>null</code></td>
+<td><code>public_record</code></td>
+</tr>
+<tr class="odd">
+<td><code>was_mental_illness_related</code></td>
+<td>Whether news reports have indicated the victim had a history of mental health issues, expressed suicidal intentions or was experiencing mental distress at the time of the shooting.</td>
+<td>boolean <code>True</code>/<code>False</code></td>
+<td><code>True</code></td>
+</tr>
+<tr class="even">
+<td><code>threat_type</code>*</td>
+<td>Actions the victim took leading up to the fatal shooting.</td>
+<td>string <br><br> options: <br>- <code>shoot</code>: The victim fired a weapon.<br>- <code>point</code> :The victim pointed a weapon at another individual.<br>- <code>attack</code>: The victim attacked with other weapons or physical force.<br>- <code>threat</code>: The victim had some kind of weapon visible to the officers on the scene.<br>- <code>move</code>: The victim was moving in a threatening way.<br>- <code>flee</code>: The victim was fleeing (see <code>flee_status</code>)<br>- <code>accident</code>: :question: <br>- <code>undetermined</code>: The threat type could not be determined from available evidence</td>
+<td><code>point</code></td>
+</tr>
+<tr class="odd">
+<td><code>armed_with</code></td>
+<td>What, if anything, was the victim armed with per federal classifications based on NIBRS, the national incident-level crime reporting system. These categories are roughly reflected in local police data and forms. A NIBRS manual is can be found here (see values for data element Type Weapon/Force involved, on PDF page 104/report page 94).</td>
+<td>string <br><br> options: <br>- <code>gun</code>: A firearm, handgun, shotgun, or other firearm<br>- <code>knife</code> : A knife or other cutting instrument (razors, hatches, axes, cleavers, scissors, broken bottles, ice picks, etc.)<br>- <code>blunt_object</code>: A blunt object (baseball bats, the butt of a handgun, clubs, bricks, tire irons, bottles, etc.)<br>- <code>other</code>: Any other weapon (BB guns, pellet guns, Tasers, pepper spray, stun guns, etc.)<br>- <code>replica</code>: A toy weapon, replica, or other non-functional firearm.<br>- <code>undetermined</code>: Whether the victim had a weapon could not be determined from available evidence.<br>- <code>unknown</code>: There was a weapon involved, but we do not know what kind.<br>- <code>unarmed</code>: The victim had no weapon according to available evidence.<br>- <code>vehicle</code>: A motor vehicle or vessel.</td>
+<td><code>"gun;knife"</code></td>
+</tr>
+<tr class="even">
+<td><code>flee_status</code>*</td>
+<td>How, if at all, was the victim moving relative to officers leading up to the shooting.</td>
+<td>string <br><br> options: <br>- <code>foot</code> : On foot<br>- <code>car</code> : Via car <br>- <code>other</code>: Via another vehicle<br>- <code>not</code>: Not fleeing</td>
+<td><code>foot</code></td>
+</tr>
+<tr class="odd">
+<td><code>agency_ids</code></td>
+<td>List of agency ids associated with the death record.</td>
+<td>string</td>
+<td><code>"1;2"</code></td>
+</tr>
+</tbody>
+</table>
+<p><em>Note:</em> <code>threat_type</code> and <code>flee_status</code> are not necessarily related. For example, there may be an incident in which the suspect is fleeing and at the same time turns to fire at gun at the officer.</p>
+</section>
+<section id="agencies" class="level3">
+<h3 class="anchored" data-anchor-id="agencies">Agencies</h3>
+<p><strong>File:</strong> <code>/v2/fatal-police-shootings-agencies.csv</code></p>
+<p><strong>Summary:</strong> Data for departments and agencies involved in a fatal police shooting in the database. This separate CSV can be joined with the death record CSV via the <code>agency_ids</code> value.</p>
+<p><strong>Fields:</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 35%">
+<col style="width: 54%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Description</th>
+<th>Type</th>
+<th>Example value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>Department database id</td>
+<td>integer</td>
+<td><code>1</code></td>
+</tr>
+<tr class="even">
+<td><code>name</code></td>
+<td>Department name</td>
+<td>string</td>
+<td><code>Davis County Sheriff's Office</code></td>
+</tr>
+<tr class="odd">
+<td><code>type</code></td>
+<td>Department type</td>
+<td>string <br><br> options: <br>-<code>local_police</code>: County or other local police <br>-<code>local_other</code>: Other local department<br>-<code>sheriff</code>: Sheriffoffice<br>-<code>other</code>: Other non-local department<br>-<code>state_police</code>: State police<br>-<code>state_other</code>: Other statewide law enforcement<br>-<code>federal</code>: Federal law enforcement</td>
+<td><code>state_other</code></td>
+</tr>
+<tr class="even">
+<td><code>state</code></td>
+<td>Department state</td>
+<td>State in which the agency is located.</td>
+<td><code>UT</code></td>
+</tr>
+<tr class="odd">
+<td><code>oricodes</code></td>
+<td>Department ORI codes (federal identifiers). <br><br>Note that there can be multiple ORI codes for a single department due to aggregated sub-departments and/or differing values provided by the FBI vs DOJ.</td>
+<td>string</td>
+<td><code>"ABC123;XYZ987"</code></td>
+</tr>
+<tr class="even">
+<td><code>total_shootings</code></td>
+<td>Total death records the agency has been involved with.</td>
+<td>integer</td>
+<td><code>2</code></td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

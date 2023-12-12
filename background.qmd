@@ -1,0 +1,23 @@
+---
+title: "Background"
+---
+
+> # On average, police in the United States shoot and kill more than 1,000 people every year, according to an ongoing analysis by The Washington Post. {style="red"}
+
+## The Washington Post Fatal Force Database
+
+In 2015, The Washington Post [began tracking](https://www.washingtonpost.com/graphics/investigations/police-shootings-database/) details about each police-involved killing in the United States --- the race of the deceased, the circumstances of the shooting, whether the person was armed and whether the person was experiencing a mental-health crisis --- by manually culling local news reports, collecting information from law enforcement websites and social media, and monitoring independent databases such as [Fatal Encounters](https://fatalencounters.org/) and the now-defunct Killed by Police project. In many cases, The Post conducts additional reporting.
+
+In 2022, The Post updated its database to standardize and publish the names of the police agencies involved in each shooting to better measure accountability at the department level.
+
+The 2014 killing of Michael Brown in Ferguson, Mo. began a protest movement culminating in the Black Lives Matter movement and an increased focus on police accountability nationwide. In this data set, The Post tracks only shootings with circumstances closely paralleling those like the killing of Brown --- incidents in which a police officer, in the line of duty, shoots and kills a civilian. The Post is not tracking deaths of people in police custody, fatal shootings by off-duty officers or non-shooting deaths in this data set.
+
+The FBI and the Centers for Disease Control and Prevention log fatal shootings by police, but officials acknowledge that their data is incomplete. Since 2015, The Post has documented more than twice as many fatal shootings by police as recorded by federal officials on average annually. That gap has widened in recent years, as the FBI in 2021 tracked only a third of departments' fatal shootings.
+
+# Most Police Don't Live In The Cities They Serve
+
+In Ferguson, Missouri, where protests lamented for months following the shooting of a teenager by a police officer this month, more than two-thirds of the civilian population is black. Only 11 percent of the police force is. The racial disparity is troubling enough on its own, but it's also suggestive of another type of misrepresentation. Given Ferguson's racial gap, it's likely that many of its police officers live outside city limits.
+
+If so, Ferguson would have something in common with most major American cities. In about two-thirds of the U.S. cities with the largest police forces, the majority of police officers commute to work from another town.
+
+On average among the 75 American cities with the largest police forces, 49 percent of black police officers and 47 percent of Hispanic officers live within the city limits. But just 35 percent of white police officers do. The disparity is starkest in cities with largely black populations. In Detroit, for example, 57 percent of black police officers live in the city but just 8 percent of white ones do. Memphis, Tennessee; Baltimore; Birmingham, Alabama; and Jackson, Mississippi --- also majority black --- likewise have large racial gaps in where their police officers live.

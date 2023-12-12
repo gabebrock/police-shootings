@@ -1,11 +1,66 @@
 ---
-title: "Police Shootings"
+title: "A Case Study on the Relationship between Police Residence and Fatal Police Shootings"
+description: "Gabriel Brock | Fa23 | Harvard University"
+author: 
+- first_name: "Gabriel"
+  last_name: "Brock"
+  url: https://github.com/gabebrock
+  affiliation: Harvard College
+  affiliation_url: https://www.gov.harvard.edu
+
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_float: true
+    code_folding: true
 ---
 
-This is a Quarto website.
+## Proposal
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+This case study investigates the intricate relationship between police residence and fatal police shootings, employing a data science approach to uncover insights and patterns within the context of law enforcement agencies. Focused on police officers residing in the cities they serve, the study examines whether this residency factor correlates with the incidence of fatal police shootings. The data set, spanning the years 2015 to 2023, is composed of information on police agencies involved in at least one fatal shooting, and is subjected to rigorous analysis using advanced statistical methods and machine learning techniques.
 
-```{r}
-1 + 1
-```
+This study aims to discern patterns, trends, and potential biases associated with the geographical proximity of police officers to the communities they police. A comprehensive exploration of demographic, socioeconomic, and policing variables contributes to a nuanced understanding of the factors influencing fatal police shootings. Furthermore, the study seeks to identify any disparities in incident rates based on officers' residency status, considering variables such as race, community demographics, and departmental policies.
+
+The insights derived from this case study bear substantial implications for informing public policy, refining police training protocols, and strengthening community relations. By unraveling the nuanced dynamics surrounding police residence and fatal police shootings, this case study aims to provide evidence-based recommendations to enhance transparency, accountability, and trust between law enforcement agencies and the communities they serve. In doing so, it contributes to the broader discourse on police reform, fostering a data-driven approach to address critical issues and promote safer, more resilient communities.
+
+### Explanatory Variables
+
+| Name                | Description                                                             |
+|------------------------|------------------------------------------------|
+| `city`              | U.S. city                                                               |
+| `police_force_size` | Number of police officers serving that city                             |
+| `all`               | Percentage of the total police force that lives in the city             |
+| `white`             | Percentage of white (non-Hispanic) police officers who live in the city |
+| `non-white`         | Percentage of non-white police officers who live in the city            |
+| `black`             | Percentage of black police officers who live in the city                |
+| `hispanic`          | Percentage of Hispanic police officers who live in the city             |
+| `asian`             | Percentage of Asian police officers who live in the city                |
+
+**Incident Information**
+
+| Name          | Description                                                                                                                                                                                                                                                                 |
+|-----------------------|------------------------------------------------|
+| `id`          | A unique identifier for each fatal police shooting incident.                                                                                                                                                                                                                |
+| `date`        | The date of the fatal shooting.                                                                                                                                                                                                                                             |
+| `body_camera` | Whether news reports have indicated an officer was wearing a body camera and it may have recorded some portion of the incident.                                                                                                                                             |
+| `city`        | The municipality where the fatal shooting took place                                                                                                                                                                                                                        |
+| `county`      | County where the fatal shooting took place.                                                                                                                                                                                                                                 |
+| `state`       | The two-letter postal code abbreviation for the state in which the fatal shooting took place.                                                                                                                                                                               |
+| `latitude`    | The latitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses. Please note that the precision and accuracy of incident coordinates varies depending on the precision of the input address which is often only available at the block level. |
+| `longitude`   | The longitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses.                                                                                                                                                                             |
+
+**Agency Information**
+
+|         | Description                           |
+|---------|---------------------------------------|
+| `id`    | Department Database Id                |
+| `name`  | Department Name                       |
+| `state` | State in which the agency is located. |
+
+## Project thoughts
+
+I am interested in exploring data related to...
+
+-   Political Extremism
+-   Black American Opinion

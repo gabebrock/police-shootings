@@ -1,5 +1,13 @@
+---
+title: "Data"
+---
+
 ```{r}
 library(tidyverse)
+library(usmap)
+library(sf)
+library(infer)
+library(moderndive)
 ```
 
 
@@ -15,6 +23,24 @@ shootings <- read_csv("data/fatal-police-shootings-data.csv")
 #removing old `city` tag from data set that we created when decatenated the city names
 police_locals <- police_locals |>
   select(-city_old)
+
+# creating `agencies` df with just police departments
+agencies <- agencies |>
+  filter(grepl("department", tolower(name))) |>
+  filter(!grepl("county", tolower(name)))
+
+#creating binned categorical account of if shooting victim was `armed`
+shootings <- shootings |>
+  mutate(armed = case_when(is.na(armed_with) ~ "NO",
+                           armed_with == "unarmed" ~ "NO",
+                           armed_with == "unknown" ~ "NO",
+                           armed_with == "undetermined" ~ "NO",
+                           armed_with == "gun" ~ "YES",
+                           armed_with == "knife" ~ "YES",
+                           armed_with == "blunt_object" ~ "YES",
+                           armed_with == "other" ~ "YES",
+                           armed_with == "replica" ~ "YES",
+                           armed_with == "vehicle" ~ "YES"))
 
 #creating df with only agency `names`, `id`, and `state`
 agencies_ids <- agencies |>
@@ -40,8 +66,141 @@ agencies_w_cities
 agencies_census <- agencies_w_cities |>
   full_join(police_locals, by = c("city" = "city", "state" = "state")) |>
   drop_na(police_force_size) |>
-  distinct(id, .keep_all = TRUE)
+  distinct(id, .keep_all = TRUE) |>
+  mutate(majority = if_else(all >= 0.5, "TRUE", "FALSE"))
 agencies_census
-  
+
+#creating df of only shootings involving agencies within `agencies` df
+shootings_case <- shootings |>
+  right_join(agencies_census, by = c("city" = "city", "state" = "state")) |>
+  select(-agency_ids) |>
+  rename(agency_ids = id.y, id = id.x, agency = name.y, victim = name.x) |>
+  select(-location_precision, -race_source)
+shootings_case
 
 ```
+
+```{r}
+
+shootings_by_agency <- shootings_case |>
+  count(agency)
+shootings_by_agency
+
+ggplot(data = shootings_case,
+       mapping = aes(x = agency)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90,
+                                    vjust = 1,
+                                    hjust = 1,
+                                    margin = margin(t = 5, b = 5)))
+
+
+```
+```{r}
+
+#mapping Locations of Police-Involved Shootings between 2015 and 2023
+
+library(ggmap)
+library(maps)
+library(mapdata)
+
+usa <- map_data("usa")
+states <- map_data("state")
+
+ggplot(data = states) + 
+  geom_polygon(aes(x = long, y = lat, fill = group, group = group), color = "white") + 
+  coord_fixed(1.3) +
+  guides(fill=FALSE) +  # do this to leave off the color legend
+  geom_point(data = shootings_case, aes(x = longitude, y = latitude), color = "black", size = .2) +
+  geom_point(data = shootings_case, aes(x = longitude, y = latitude), color = "red", size = .1) +
+  labs(title = "Locations of Police-Involved Shootings between 2015 and 2023",
+       captions = "This is only includes cities where we have agency census data.",
+       x = "Longitude",
+       y = "Latitude")
+
+```
+
+```{r}
+
+agencies_census <- agencies_census |>
+  left_join(shootings_by_agency, by = c("name" = "agency"))
+agencies_census
+
+agencies_census |>
+  ggplot(mapping = aes(x = all, y = n, fill=)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE)
+
+shootings_case |>
+  ggplot(aes(x = majority, fill = armed)) +
+  geom_bar() + 
+  labs(title = "Shootings in Cities where a Majority of Officers Reside",
+       captions = "This is only includes shootings where we have agency census data.",
+       x = "Does a majority a of the total police force live in the city?",
+       y = "Number of fatal shootings",
+       fill = "Victim Armed?")
+
+majority_mean <- shootings_case |>
+  filter(majority == TRUE) |>
+  count(agency) |>
+  summarize(maj_mean = mean(n))
+majority_mean
+
+minority_mean <- shootings_case |>
+  filter(majority == FALSE) |>
+  count(agency) |>
+  summarize(min_mean = mean(n))
+minority_mean
+
+diff_in_means <- majority_mean - minority_mean
+diff_in_means
+
+knitr::kable(head(diff_in_means))
+
+
+```
+
+
+```{r}
+
+fit <- lm(n ~ all, data = agencies_census)
+fit
+
+p1 <- get_regression_table(fit)
+knitr::kable(head(p1))
+
+shootings_by_agency_census <- shootings_case %>%
+  group_by(agency) %>%
+  count(armed) %>%
+  drop_na(n, armed) %>%
+  right_join(agencies_census, by = c("agency" = "name")) |>
+  distinct(armed, .keep_all = TRUE)
+shootings_by_agency_census
+
+shootings_by_agency_census <- shootings_by_agency_census |>
+  select(n.x, armed, all) 
+
+fit_multi <- lm(n.x ~ all + armed, data = shootings_by_agency_census)
+fit_multi
+
+p2 <- get_regression_table(fit_multi)
+knitr::kable(head(p2))
+
+ggplot(data = shootings_by_agency_census, aes(x = all, y = n.x)) +
+  geom_jitter(jitter = 15, alpha = 0.5) +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE) +
+  labs(title = "Number of Shootings on a Scale of Police Force Residency",
+       x = "Percentage of the total police force that lives in the city",
+       y = "Number of fatal shootings in that city")
+
+ggplot(data = shootings_by_agency_census, aes(x = all, y = n.x, color = armed)) +
+  geom_jitter(jitter = 15, alpha = 0.5) +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE) +
+  labs(title = "Number of Shootings on a Scale of Police Force Residency",
+       x = "Percentage of the total police force that lives in the city",
+       y = "Number of fatal shootings in that city")
+
+
+
+```
+

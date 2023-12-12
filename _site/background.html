@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Gabriel Brock | Fa23 | Harvard University">
 
-<title>Police Shootings - A Case Study on the Relationship between Police Residence and Fatal Police Shootings</title>
+<title>Police Shootings - Background</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,11 +81,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./background.html" rel="" target="">
+    <a class="nav-link active" href="./background.html" rel="" target="" aria-current="page">
  <span class="menu-text">Background</span></a>
   </li>  
   <li class="nav-item">
@@ -109,11 +108,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#proposal" id="toc-proposal" class="nav-link active" data-scroll-target="#proposal">Proposal</a>
-  <ul class="collapse">
-  <li><a href="#explanatory-variables" id="toc-explanatory-variables" class="nav-link" data-scroll-target="#explanatory-variables">Explanatory Variables</a></li>
-  </ul></li>
-  <li><a href="#project-thoughts" id="toc-project-thoughts" class="nav-link" data-scroll-target="#project-thoughts">Project thoughts</a></li>
+  <li><a href="#the-washington-post-fatal-force-database" id="toc-the-washington-post-fatal-force-database" class="nav-link active" data-scroll-target="#the-washington-post-fatal-force-database">The Washington Post Fatal Force Database</a></li>
+  <li><a href="#most-police-dont-live-in-the-cities-they-serve" id="toc-most-police-dont-live-in-the-cities-they-serve" class="nav-link" data-scroll-target="#most-police-dont-live-in-the-cities-they-serve">Most Police Don’t Live In The Cities They Serve</a></li>
   </ul>
 </nav>
     </div>
@@ -122,14 +118,9 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A Case Study on the Relationship between Police Residence and Fatal Police Shootings</h1>
+<h1 class="title">Background</h1>
 </div>
 
-<div>
-  <div class="description">
-    Gabriel Brock | Fa23 | Harvard University
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -142,138 +133,21 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="proposal" class="level2">
-<h2 class="anchored" data-anchor-id="proposal">Proposal</h2>
-<p>This case study investigates the intricate relationship between police residence and fatal police shootings, employing a data science approach to uncover insights and patterns within the context of law enforcement agencies. Focused on police officers residing in the cities they serve, the study examines whether this residency factor correlates with the incidence of fatal police shootings. The data set, spanning the years 2015 to 2023, is composed of information on police agencies involved in at least one fatal shooting, and is subjected to rigorous analysis using advanced statistical methods and machine learning techniques.</p>
-<p>This study aims to discern patterns, trends, and potential biases associated with the geographical proximity of police officers to the communities they police. A comprehensive exploration of demographic, socioeconomic, and policing variables contributes to a nuanced understanding of the factors influencing fatal police shootings. Furthermore, the study seeks to identify any disparities in incident rates based on officers’ residency status, considering variables such as race, community demographics, and departmental policies.</p>
-<p>The insights derived from this case study bear substantial implications for informing public policy, refining police training protocols, and strengthening community relations. By unraveling the nuanced dynamics surrounding police residence and fatal police shootings, this case study aims to provide evidence-based recommendations to enhance transparency, accountability, and trust between law enforcement agencies and the communities they serve. In doing so, it contributes to the broader discourse on police reform, fostering a data-driven approach to address critical issues and promote safer, more resilient communities.</p>
-<section id="explanatory-variables" class="level3">
-<h3 class="anchored" data-anchor-id="explanatory-variables">Explanatory Variables</h3>
-<table class="table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 66%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>city</code></td>
-<td>U.S. city</td>
-</tr>
-<tr class="even">
-<td><code>police_force_size</code></td>
-<td>Number of police officers serving that city</td>
-</tr>
-<tr class="odd">
-<td><code>all</code></td>
-<td>Percentage of the total police force that lives in the city</td>
-</tr>
-<tr class="even">
-<td><code>white</code></td>
-<td>Percentage of white (non-Hispanic) police officers who live in the city</td>
-</tr>
-<tr class="odd">
-<td><code>non-white</code></td>
-<td>Percentage of non-white police officers who live in the city</td>
-</tr>
-<tr class="even">
-<td><code>black</code></td>
-<td>Percentage of black police officers who live in the city</td>
-</tr>
-<tr class="odd">
-<td><code>hispanic</code></td>
-<td>Percentage of Hispanic police officers who live in the city</td>
-</tr>
-<tr class="even">
-<td><code>asian</code></td>
-<td>Percentage of Asian police officers who live in the city</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Incident Information</strong></p>
-<table class="table">
-<colgroup>
-<col style="width: 32%">
-<col style="width: 67%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>id</code></td>
-<td>A unique identifier for each fatal police shooting incident.</td>
-</tr>
-<tr class="even">
-<td><code>date</code></td>
-<td>The date of the fatal shooting.</td>
-</tr>
-<tr class="odd">
-<td><code>body_camera</code></td>
-<td>Whether news reports have indicated an officer was wearing a body camera and it may have recorded some portion of the incident.</td>
-</tr>
-<tr class="even">
-<td><code>city</code></td>
-<td>The municipality where the fatal shooting took place</td>
-</tr>
-<tr class="odd">
-<td><code>county</code></td>
-<td>County where the fatal shooting took place.</td>
-</tr>
-<tr class="even">
-<td><code>state</code></td>
-<td>The two-letter postal code abbreviation for the state in which the fatal shooting took place.</td>
-</tr>
-<tr class="odd">
-<td><code>latitude</code></td>
-<td>The latitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses. Please note that the precision and accuracy of incident coordinates varies depending on the precision of the input address which is often only available at the block level.</td>
-</tr>
-<tr class="even">
-<td><code>longitude</code></td>
-<td>The longitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Agency Information</strong></p>
-<table class="table">
-<thead>
-<tr class="header">
-<th></th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>id</code></td>
-<td>Department Database Id</td>
-</tr>
-<tr class="even">
-<td><code>name</code></td>
-<td>Department Name</td>
-</tr>
-<tr class="odd">
-<td><code>state</code></td>
-<td>State in which the agency is located.</td>
-</tr>
-</tbody>
-</table>
+<blockquote class="blockquote">
+<h1 id="on-average-police-in-the-united-states-shoot-and-kill-more-than-1000-people-every-year-according-to-an-ongoing-analysis-by-the-washington-post." style="red">On average, police in the United States shoot and kill more than 1,000 people every year, according to an ongoing analysis by The Washington Post.</h1>
+</blockquote>
+<section id="the-washington-post-fatal-force-database" class="level2">
+<h2 class="anchored" data-anchor-id="the-washington-post-fatal-force-database">The Washington Post Fatal Force Database</h2>
+<p>In 2015, The Washington Post <a href="https://www.washingtonpost.com/graphics/investigations/police-shootings-database/">began tracking</a> details about each police-involved killing in the United States — the race of the deceased, the circumstances of the shooting, whether the person was armed and whether the person was experiencing a mental-health crisis — by manually culling local news reports, collecting information from law enforcement websites and social media, and monitoring independent databases such as <a href="https://fatalencounters.org/">Fatal Encounters</a> and the now-defunct Killed by Police project. In many cases, The Post conducts additional reporting.</p>
+<p>In 2022, The Post updated its database to standardize and publish the names of the police agencies involved in each shooting to better measure accountability at the department level.</p>
+<p>The 2014 killing of Michael Brown in Ferguson, Mo. began a protest movement culminating in the Black Lives Matter movement and an increased focus on police accountability nationwide. In this data set, The Post tracks only shootings with circumstances closely paralleling those like the killing of Brown — incidents in which a police officer, in the line of duty, shoots and kills a civilian. The Post is not tracking deaths of people in police custody, fatal shootings by off-duty officers or non-shooting deaths in this data set.</p>
+<p>The FBI and the Centers for Disease Control and Prevention log fatal shootings by police, but officials acknowledge that their data is incomplete. Since 2015, The Post has documented more than twice as many fatal shootings by police as recorded by federal officials on average annually. That gap has widened in recent years, as the FBI in 2021 tracked only a third of departments’ fatal shootings.</p>
 </section>
-</section>
-<section id="project-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to…</p>
-<ul>
-<li>Political Extremism</li>
-<li>Black American Opinion</li>
-</ul>
+<section id="most-police-dont-live-in-the-cities-they-serve" class="level1">
+<h1>Most Police Don’t Live In The Cities They Serve</h1>
+<p>In Ferguson, Missouri, where protests lamented for months following the shooting of a teenager by a police officer this month, more than two-thirds of the civilian population is black. Only 11 percent of the police force is. The racial disparity is troubling enough on its own, but it’s also suggestive of another type of misrepresentation. Given Ferguson’s racial gap, it’s likely that many of its police officers live outside city limits.</p>
+<p>If so, Ferguson would have something in common with most major American cities. In about two-thirds of the U.S. cities with the largest police forces, the majority of police officers commute to work from another town.</p>
+<p>On average among the 75 American cities with the largest police forces, 49 percent of black police officers and 47 percent of Hispanic officers live within the city limits. But just 35 percent of white police officers do. The disparity is starkest in cities with largely black populations. In Detroit, for example, 57 percent of black police officers live in the city but just 8 percent of white ones do. Memphis, Tennessee; Baltimore; Birmingham, Alabama; and Jackson, Mississippi — also majority black — likewise have large racial gaps in where their police officers live.</p>
 
 
 </section>
