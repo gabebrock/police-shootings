@@ -11,7 +11,7 @@ library(moderndive)
 ```
 
 
-```{r}
+```{r Tidyin}
 
 ##Tidying Data
 
@@ -82,18 +82,24 @@ shootings_case
 
 ```{r}
 
+#count shootings by agency
 shootings_by_agency <- shootings_case |>
   count(agency)
 shootings_by_agency
 
-ggplot(data = shootings_case,
-       mapping = aes(x = agency)) +
-  geom_bar() +
-  theme(axis.text.x = element_text(angle = 90,
+#find top 25 agencies with the most shootings
+top_25_agencies <- shootings_by_agency |>
+  slice_max(n, n = 25)
+top_25_agencies
+
+# visulize top 25 agencies with the most shootings
+ggplot(data = top_25_agencies,
+       mapping = aes(x = agency, y = n)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 75,
                                     vjust = 1,
                                     hjust = 1,
                                     margin = margin(t = 5, b = 5)))
-
 
 ```
 ```{r}
@@ -120,41 +126,49 @@ ggplot(data = states) +
 
 ```
 
-```{r}
+```{r }
 
+#creating df with total shootings per agency and census data
 agencies_census <- agencies_census |>
   left_join(shootings_by_agency, by = c("name" = "agency"))
 agencies_census
 
+#prelim visualization of relationship between percentage of officer residency and number of fatal shootings per agency
 agencies_census |>
-  ggplot(mapping = aes(x = all, y = n, fill=)) +
+  ggplot(mapping = aes(x = all, y = n)) +
   geom_point() +
-  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE)
+  geom_smooth(method = "lm", se = TRUE)
 
-shootings_case |>
+#creating visualization of comparison Shootings in Cities where a Majority/Minority of Officers Reside
+p0 <- shootings_case |>
   ggplot(aes(x = majority, fill = armed)) +
   geom_bar() + 
   labs(title = "Shootings in Cities where a Majority of Officers Reside",
-       captions = "This is only includes shootings where we have agency census data.",
+       caption = "This is only includes shootings where we have agency census data.",
        x = "Does a majority a of the total police force live in the city?",
        y = "Number of fatal shootings",
        fill = "Victim Armed?")
+p0
 
+#calculate mean number of shootings per agency in cities where a majority of officers reside in the city
 majority_mean <- shootings_case |>
   filter(majority == TRUE) |>
   count(agency) |>
   summarize(maj_mean = mean(n))
 majority_mean
 
+#calculate mean number of shootings per agency in cities where a minority of officers reside in the city
 minority_mean <- shootings_case |>
   filter(majority == FALSE) |>
   count(agency) |>
   summarize(min_mean = mean(n))
 minority_mean
 
+#calculate a difference in means between the `majority` and `minority`
 diff_in_means <- majority_mean - minority_mean
 diff_in_means
 
+#tidy table
 knitr::kable(head(diff_in_means))
 
 
@@ -163,12 +177,15 @@ knitr::kable(head(diff_in_means))
 
 ```{r}
 
+#fit single linear regression model for correlation between percentage of officer residency and number of fatal shootings per agency
 fit <- lm(n ~ all, data = agencies_census)
 fit
 
+#tidy `fit`
 p1 <- get_regression_table(fit)
 knitr::kable(head(p1))
 
+#add `armed` and `majority` to `shootings_by_agency` df
 shootings_by_agency_census <- shootings_case %>%
   group_by(agency) %>%
   count(armed) %>%
@@ -180,27 +197,97 @@ shootings_by_agency_census
 shootings_by_agency_census <- shootings_by_agency_census |>
   select(n.x, armed, all) 
 
+#fit multiple linear regression model for correlation between percentage of officer residency and victim armament and number of fatal shootings per agency
 fit_multi <- lm(n.x ~ all + armed, data = shootings_by_agency_census)
 fit_multi
 
+#tidy `fit_multi`
 p2 <- get_regression_table(fit_multi)
 knitr::kable(head(p2))
 
+
+#visualize polynomial relationship between percentage of officer residency and number of fatal shootings per agency
 ggplot(data = shootings_by_agency_census, aes(x = all, y = n.x)) +
-  geom_jitter(jitter = 15, alpha = 0.5) +
-  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE) +
+  geom_jitter(width = 0.10, height = 0, alpha = 0.45) +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = TRUE) +
   labs(title = "Number of Shootings on a Scale of Police Force Residency",
        x = "Percentage of the total police force that lives in the city",
        y = "Number of fatal shootings in that city")
 
+#visualize polynomial relationship between percentage of officer residency and victim armament and number of fatal shootings per agency
 ggplot(data = shootings_by_agency_census, aes(x = all, y = n.x, color = armed)) +
-  geom_jitter(jitter = 15, alpha = 0.5) +
-  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE) +
+  geom_jitter(width = 0.10, height = 0, alpha = 0.45) +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = TRUE) +
   labs(title = "Number of Shootings on a Scale of Police Force Residency",
        x = "Percentage of the total police force that lives in the city",
-       y = "Number of fatal shootings in that city")
-
-
+       y = "Number of fatal shootings in that city",
+       color = "Victim Armed?")
 
 ```
 
+```{r Hypothesis Testing for Diff in Mean Total Fatal Shootings between Residency Prop}
+
+#generate null distribution
+null_dist <- agencies_census %>%
+  specify(n ~ majority) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("TRUE", "FALSE"))
+
+#compute observed test statistic
+test_stat <- agencies_census %>%
+  specify(n ~ majority) %>%
+  calculate(stat = "diff in means", order = c("TRUE", "FALSE"))
+
+#visualize p-value
+null_dist %>%
+  visualize() +
+  shade_p_value(obs_stat = test_stat, direction = "less")
+
+#compute p-value
+  null_dist %>%
+  get_p_value(obs_stat = test_stat, direction = "less")
+
+```
+Inference for a Difference in Proportions
+
+- $H_0$: The mean total number of fatal shootings per agencies does not differ based on if a majority of the officers live in the city or not.
+- $H_A$: The mean total number of fatal shootings per agencies is fewer in cities where a majority of the officers live in the city then cities where they do not.
+
+– $H_0 : p_{maj} − p_{min} = 0$, or equivalently $H_0 : p_{maj} = p_{min}$
+– $H_A : p_{maj} − p_{min} < 0$, or equivalently $H_A : p_{maj} < p_{min}$
+
+
+```{r Hypothesis Testing for Correlation between Total Fatal Shootings and Residency Prop}
+
+#generate null distribution
+null_dist_cor <- agencies_census %>%
+  specify(n ~ white) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "correlation")
+
+#compute observed test statistic
+test_stat_cor <- agencies_census %>%
+  specify(n ~ white) %>%
+  calculate(stat = "correlation")
+test_stat_cor
+
+#visualize p-value
+null_dist_cor %>%
+  visualize() +
+  shade_p_value(obs_stat = test_stat, direction = "greater")
+
+#compute p-value
+null_dist_cor %>%
+  get_p_value(obs_stat = test_stat, direction = "greater")
+
+```
+
+Inference for a Correlation
+
+- $H_O$: There is no relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings.
+- $H_O$: There is a relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings.
+
+– $H_0 : \rho = 0$
+– $H_0 : \rho \neq 0$
