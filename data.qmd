@@ -1,0 +1,47 @@
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+
+##Tidying Data
+
+#creating dfs from .csv files
+police_locals <- read_csv("data/police-locals.csv")
+agencies <- read_csv("data/fatal-police-shootings-agencies.csv")
+shootings <- read_csv("data/fatal-police-shootings-data.csv")
+
+#removing old `city` tag from data set that we created when decatenated the city names
+police_locals <- police_locals |>
+  select(-city_old)
+
+#creating df with only agency `names`, `id`, and `state`
+agencies_ids <- agencies |>
+  select(name, id, state)
+agencies_ids
+
+#creating df with `city`, `agency`, and `state` info for each shooting
+shooting_agencies <- shootings |>
+  select(city, agency_ids, state)
+shooting_agencies
+
+#changing `shooting` var in `shooting_agencies` df to numeric
+shooting_agencies$agency_ids <- as.numeric(shootings$agency_ids)
+
+#creating df with `city` and `state` info for each agency by joining `agencies_ids` and `shooting_agencies`
+agencies_w_cities <- agencies_ids |>
+  left_join(shooting_agencies, by = c("id" = "agency_ids", "state" = "state")) |>
+  drop_na(city) |>
+  distinct(id, .keep_all = TRUE)
+agencies_w_cities
+
+#creating df with census data for each agency by joining `agencies_w_cities` and `police_locals`
+agencies_census <- agencies_w_cities |>
+  full_join(police_locals, by = c("city" = "city", "state" = "state")) |>
+  drop_na(police_force_size) |>
+  distinct(id, .keep_all = TRUE)
+agencies_census
+  
+
+```
