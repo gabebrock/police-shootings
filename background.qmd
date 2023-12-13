@@ -4,7 +4,54 @@ title: "Background"
 
 > # On average, police in the United States shoot and kill more than 1,000 people every year, according to an ongoing analysis by The Washington Post. {style="red"}
 
-## The Washington Post Fatal Force Database
+# Proposal
+
+We propose a case study to explore the relationship between police residence and fatal police shootings, employing advanced data science methodologies. Focusing on officers residing in the cities they serve, our project aims to uncover insights and patterns that contribute to a nuanced understanding of this complex issue.
+
+### **Objectives:**
+
+1.  Investigate the correlation between police residence and fatal police shootings.
+2.  Utilize a comprehensive dataset spanning 2015 to 2023, focusing on police agencies involved in at least one fatal shooting.
+3.  Apply advanced statistical methods and machine learning techniques to identify patterns and potential biases.
+4.  Examine disparities in incident rates based on officers' residency status, considering demographic, socioeconomic, and policing variables.
+
+**Methodology:**
+
+a.  Data Collection:
+    -   Compile a dataset comprising information on police agencies involved in fatal police shootings.
+    -   Compile a data set of census variables such as officer residency, race, community demographics, and departmental policies.
+b.  Analysis:
+    -   Employ advanced statistical methods and machine learning techniques to discern patterns and correlations.
+    -   Conduct a comprehensive exploration of variables influencing fatal police shootings.
+
+**Hypothesis and Expected Outcomes:**
+
+We will conduct two hypothesis tests to analyze both;
+
+-   the nominal relationship between an increasing proportion of in-city officer residency and number of fatal police shooting deaths and
+
+-   the categorical difference in fatal police shooting deaths between cities where a majority or or minority of police officers live in the city.
+
+1.  Inference for a Difference in Proportions
+
+    -   $H_0$: The mean total number of fatal shootings per agencies does not differ based on if a majority of the officers live in the city or not.
+
+    -   $H_A$: The mean total number of fatal shootings per agencies is fewer in cities where a majority of the officers live in the city then cities where they do not.
+
+        -   $H_0 : p\_{maj} − p\_{min} = 0$, or equivalently $H_0 : p\_{maj} = p\_{min}$
+        -   $H_A : p\_{maj} − p\_{min} < 0$, or equivalently $H_A : p\_{maj} < p\_{min}$
+
+2.  Inference for a Correlation
+
+    -   $H_O$: There is no relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings.
+
+    -   $H_A$: There is a relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings.
+
+        -   $H_0 : \rho = 0$
+
+        -   $H_0 : \rho \neq 0$
+
+# The Washington Post Fatal Force Database
 
 In 2015, The Washington Post [began tracking](https://www.washingtonpost.com/graphics/investigations/police-shootings-database/) details about each police-involved killing in the United States --- the race of the deceased, the circumstances of the shooting, whether the person was armed and whether the person was experiencing a mental-health crisis --- by manually culling local news reports, collecting information from law enforcement websites and social media, and monitoring independent databases such as [Fatal Encounters](https://fatalencounters.org/) and the now-defunct Killed by Police project. In many cases, The Post conducts additional reporting.
 

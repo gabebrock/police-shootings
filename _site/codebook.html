@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Police Shootings - About</title>
+<title>Police Shootings - Codebook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -119,6 +85,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link active" href="./codebook.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Codebook</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./background.html" rel="" target="">
  <span class="menu-text">Background</span></a>
   </li>  
@@ -138,14 +108,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#explanatory-variables" id="toc-explanatory-variables" class="nav-link active" data-scroll-target="#explanatory-variables">Explanatory Variables</a>
+  <ul class="collapse">
+  <li><a href="#incident-information" id="toc-incident-information" class="nav-link" data-scroll-target="#incident-information">Incident Information</a></li>
+  <li><a href="#agency-information" id="toc-agency-information" class="nav-link" data-scroll-target="#agency-information">Agency Information</a></li>
+  </ul></li>
+  <li><a href="#project-thoughts" id="toc-project-thoughts" class="nav-link" data-scroll-target="#project-thoughts">Project thoughts</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Codebook</h1>
 </div>
 
 
@@ -160,15 +141,139 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>About this site</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
+<section id="explanatory-variables" class="level2">
+<h2 class="anchored" data-anchor-id="explanatory-variables">Explanatory Variables</h2>
+<table class="table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>city</code></td>
+<td>U.S. city</td>
+</tr>
+<tr class="even">
+<td><code>police_force_size</code></td>
+<td>Number of police officers serving that city</td>
+</tr>
+<tr class="odd">
+<td><code>all</code></td>
+<td>Percentage of the total police force that lives in the city</td>
+</tr>
+<tr class="even">
+<td><code>white</code></td>
+<td>Percentage of white (non-Hispanic) police officers who live in the city</td>
+</tr>
+<tr class="odd">
+<td><code>non-white</code></td>
+<td>Percentage of non-white police officers who live in the city</td>
+</tr>
+<tr class="even">
+<td><code>black</code></td>
+<td>Percentage of black police officers who live in the city</td>
+</tr>
+<tr class="odd">
+<td><code>hispanic</code></td>
+<td>Percentage of Hispanic police officers who live in the city</td>
+</tr>
+<tr class="even">
+<td><code>asian</code></td>
+<td>Percentage of Asian police officers who live in the city</td>
+</tr>
+</tbody>
+</table>
+<section id="incident-information" class="level3">
+<h3 class="anchored" data-anchor-id="incident-information">Incident Information</h3>
+<table class="table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>A unique identifier for each fatal police shooting incident.</td>
+</tr>
+<tr class="even">
+<td><code>date</code></td>
+<td>The date of the fatal shooting.</td>
+</tr>
+<tr class="odd">
+<td><code>body_camera</code></td>
+<td>Whether news reports have indicated an officer was wearing a body camera and it may have recorded some portion of the incident.</td>
+</tr>
+<tr class="even">
+<td><code>city</code></td>
+<td>The municipality where the fatal shooting took place</td>
+</tr>
+<tr class="odd">
+<td><code>county</code></td>
+<td>County where the fatal shooting took place.</td>
+</tr>
+<tr class="even">
+<td><code>state</code></td>
+<td>The two-letter postal code abbreviation for the state in which the fatal shooting took place.</td>
+</tr>
+<tr class="odd">
+<td><code>latitude</code></td>
+<td>The latitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses. Please note that the precision and accuracy of incident coordinates varies depending on the precision of the input address which is often only available at the block level.</td>
+</tr>
+<tr class="even">
+<td><code>longitude</code></td>
+<td>The longitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="agency-information" class="level3">
+<h3 class="anchored" data-anchor-id="agency-information">Agency Information</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>Department Database Id</td>
+</tr>
+<tr class="even">
+<td><code>name</code></td>
+<td>Department Name</td>
+</tr>
+<tr class="odd">
+<td><code>state</code></td>
+<td>State in which the agency is located.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="project-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="project-thoughts">Project thoughts</h2>
+<p>I am interested in exploring data related to…</p>
+<ul>
+<li>Political Extremism</li>
+<li>Black American Opinion</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -59,6 +59,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -85,6 +87,10 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./codebook.html" rel="" target="">
+ <span class="menu-text">Codebook</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link active" href="./background.html" rel="" target="" aria-current="page">
  <span class="menu-text">Background</span></a>
   </li>  
@@ -108,7 +114,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-washington-post-fatal-force-database" id="toc-the-washington-post-fatal-force-database" class="nav-link active" data-scroll-target="#the-washington-post-fatal-force-database">The Washington Post Fatal Force Database</a></li>
+  <li><a href="#proposal" id="toc-proposal" class="nav-link active" data-scroll-target="#proposal">Proposal</a>
+  <ul class="collapse">
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><strong>Objectives:</strong></a></li>
+  </ul></li>
+  <li><a href="#the-washington-post-fatal-force-database" id="toc-the-washington-post-fatal-force-database" class="nav-link" data-scroll-target="#the-washington-post-fatal-force-database">The Washington Post Fatal Force Database</a></li>
   <li><a href="#most-police-dont-live-in-the-cities-they-serve" id="toc-most-police-dont-live-in-the-cities-they-serve" class="nav-link" data-scroll-target="#most-police-dont-live-in-the-cities-they-serve">Most Police Don’t Live In The Cities They Serve</a></li>
   </ul>
 </nav>
@@ -136,8 +146,60 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <h1 id="on-average-police-in-the-united-states-shoot-and-kill-more-than-1000-people-every-year-according-to-an-ongoing-analysis-by-the-washington-post." style="red">On average, police in the United States shoot and kill more than 1,000 people every year, according to an ongoing analysis by The Washington Post.</h1>
 </blockquote>
-<section id="the-washington-post-fatal-force-database" class="level2">
-<h2 class="anchored" data-anchor-id="the-washington-post-fatal-force-database">The Washington Post Fatal Force Database</h2>
+<section id="proposal" class="level1">
+<h1>Proposal</h1>
+<p>We propose a case study to explore the relationship between police residence and fatal police shootings, employing advanced data science methodologies. Focusing on officers residing in the cities they serve, our project aims to uncover insights and patterns that contribute to a nuanced understanding of this complex issue.</p>
+<section id="objectives" class="level3">
+<h3 class="anchored" data-anchor-id="objectives"><strong>Objectives:</strong></h3>
+<ol type="1">
+<li>Investigate the correlation between police residence and fatal police shootings.</li>
+<li>Utilize a comprehensive dataset spanning 2015 to 2023, focusing on police agencies involved in at least one fatal shooting.</li>
+<li>Apply advanced statistical methods and machine learning techniques to identify patterns and potential biases.</li>
+<li>Examine disparities in incident rates based on officers’ residency status, considering demographic, socioeconomic, and policing variables.</li>
+</ol>
+<p><strong>Methodology:</strong></p>
+<ol type="a">
+<li>Data Collection:
+<ul>
+<li>Compile a dataset comprising information on police agencies involved in fatal police shootings.</li>
+<li>Compile a data set of census variables such as officer residency, race, community demographics, and departmental policies.</li>
+</ul></li>
+<li>Analysis:
+<ul>
+<li>Employ advanced statistical methods and machine learning techniques to discern patterns and correlations.</li>
+<li>Conduct a comprehensive exploration of variables influencing fatal police shootings.</li>
+</ul></li>
+</ol>
+<p><strong>Hypothesis and Expected Outcomes:</strong></p>
+<p>We will conduct two hypothesis tests to analyze both;</p>
+<ul>
+<li><p>the nominal relationship between an increasing proportion of in-city officer residency and number of fatal police shooting deaths and</p></li>
+<li><p>the categorical difference in fatal police shooting deaths between cities where a majority or or minority of police officers live in the city.</p></li>
+</ul>
+<ol type="1">
+<li><p>Inference for a Difference in Proportions</p>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: The mean total number of fatal shootings per agencies does not differ based on if a majority of the officers live in the city or not.</p></li>
+<li><p><span class="math inline">\(H_A\)</span>: The mean total number of fatal shootings per agencies is fewer in cities where a majority of the officers live in the city then cities where they do not.</p>
+<ul>
+<li><span class="math inline">\(H_0 : p\_{maj} − p\_{min} = 0\)</span>, or equivalently <span class="math inline">\(H_0 : p\_{maj} = p\_{min}\)</span></li>
+<li><span class="math inline">\(H_A : p\_{maj} − p\_{min} &lt; 0\)</span>, or equivalently <span class="math inline">\(H_A : p\_{maj} &lt; p\_{min}\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>Inference for a Correlation</p>
+<ul>
+<li><p><span class="math inline">\(H_O\)</span>: There is no relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings.</p></li>
+<li><p><span class="math inline">\(H_A\)</span>: There is a relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings.</p>
+<ul>
+<li><p><span class="math inline">\(H_0 : \rho = 0\)</span></p></li>
+<li><p><span class="math inline">\(H_0 : \rho \neq 0\)</span></p></li>
+</ul></li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="the-washington-post-fatal-force-database" class="level1">
+<h1>The Washington Post Fatal Force Database</h1>
 <p>In 2015, The Washington Post <a href="https://www.washingtonpost.com/graphics/investigations/police-shootings-database/">began tracking</a> details about each police-involved killing in the United States — the race of the deceased, the circumstances of the shooting, whether the person was armed and whether the person was experiencing a mental-health crisis — by manually culling local news reports, collecting information from law enforcement websites and social media, and monitoring independent databases such as <a href="https://fatalencounters.org/">Fatal Encounters</a> and the now-defunct Killed by Police project. In many cases, The Post conducts additional reporting.</p>
 <p>In 2022, The Post updated its database to standardize and publish the names of the police agencies involved in each shooting to better measure accountability at the department level.</p>
 <p>The 2014 killing of Michael Brown in Ferguson, Mo. began a protest movement culminating in the Black Lives Matter movement and an increased focus on police accountability nationwide. In this data set, The Post tracks only shootings with circumstances closely paralleling those like the killing of Brown — incidents in which a police officer, in the line of duty, shoots and kills a civilian. The Post is not tracking deaths of people in police custody, fatal shootings by off-duty officers or non-shooting deaths in this data set.</p>

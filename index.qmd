@@ -14,9 +14,26 @@ output:
     toc: true
     toc_float: true
     code_folding: true
+    
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
 ---
 
-## Proposal
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+
+library(tidyverse)
+library(usmap)
+library(sf)
+library(infer)
+library(moderndive)
+```
+
+> # On average, police in the United States shoot and kill more than 1,000 people every year...and then they go home to their families
+
+## Abstract {#sec-abstract}
 
 This case study investigates the intricate relationship between police residence and fatal police shootings, employing a data science approach to uncover insights and patterns within the context of law enforcement agencies. Focused on police officers residing in the cities they serve, the study examines whether this residency factor correlates with the incidence of fatal police shootings. The data set, spanning the years 2015 to 2023, is composed of information on police agencies involved in at least one fatal shooting, and is subjected to rigorous analysis using advanced statistical methods and machine learning techniques.
 
@@ -24,43 +41,324 @@ This study aims to discern patterns, trends, and potential biases associated wit
 
 The insights derived from this case study bear substantial implications for informing public policy, refining police training protocols, and strengthening community relations. By unraveling the nuanced dynamics surrounding police residence and fatal police shootings, this case study aims to provide evidence-based recommendations to enhance transparency, accountability, and trust between law enforcement agencies and the communities they serve. In doing so, it contributes to the broader discourse on police reform, fostering a data-driven approach to address critical issues and promote safer, more resilient communities.
 
-### Explanatory Variables
+## Hypotheses
 
-| Name                | Description                                                             |
-|------------------------|------------------------------------------------|
-| `city`              | U.S. city                                                               |
-| `police_force_size` | Number of police officers serving that city                             |
-| `all`               | Percentage of the total police force that lives in the city             |
-| `white`             | Percentage of white (non-Hispanic) police officers who live in the city |
-| `non-white`         | Percentage of non-white police officers who live in the city            |
-| `black`             | Percentage of black police officers who live in the city                |
-| `hispanic`          | Percentage of Hispanic police officers who live in the city             |
-| `asian`             | Percentage of Asian police officers who live in the city                |
+We will conduct two hypothesis tests to analyze both;
 
-**Incident Information**
+1.  The nominal relationship between an increasing proportion of in-city officer residency and number of fatal police shooting deaths
 
-| Name          | Description                                                                                                                                                                                                                                                                 |
-|-----------------------|------------------------------------------------|
-| `id`          | A unique identifier for each fatal police shooting incident.                                                                                                                                                                                                                |
-| `date`        | The date of the fatal shooting.                                                                                                                                                                                                                                             |
-| `body_camera` | Whether news reports have indicated an officer was wearing a body camera and it may have recorded some portion of the incident.                                                                                                                                             |
-| `city`        | The municipality where the fatal shooting took place                                                                                                                                                                                                                        |
-| `county`      | County where the fatal shooting took place.                                                                                                                                                                                                                                 |
-| `state`       | The two-letter postal code abbreviation for the state in which the fatal shooting took place.                                                                                                                                                                               |
-| `latitude`    | The latitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses. Please note that the precision and accuracy of incident coordinates varies depending on the precision of the input address which is often only available at the block level. |
-| `longitude`   | The longitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses.                                                                                                                                                                             |
+    -   $H_0$: The mean total number of fatal shootings per agencies does not differ based on if a majority of the officers live in the city or not.
 
-**Agency Information**
+    -   $H_A$: The mean total number of fatal shootings per agencies is fewer in cities where a majority of the officers live in the city then cities where they do not.
 
-|         | Description                           |
-|---------|---------------------------------------|
-| `id`    | Department Database Id                |
-| `name`  | Department Name                       |
-| `state` | State in which the agency is located. |
+        -   $H_0 : p\_{maj} − p\_{min} = 0$, or equivalently $H_0 : p\_{maj} = p\_{min}$
+        -   $H_A : p\_{maj} − p\_{min} < 0$, or equivalently $H_A : p\_{maj} < p\_{min}$
 
-## Project thoughts
+2.  The categorical difference in fatal police shooting deaths between cities where a majority or or minority of police officers live in the city.
 
-I am interested in exploring data related to...
+    -   $H_0$: There is no relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings.
 
--   Political Extremism
--   Black American Opinion
+    -   $H_A$: There is a relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings.
+
+        -   $H_0 : \rho = 0$
+
+        -   $H_0 : \rho \neq 0$
+
+## Methods
+
+#### Tidying Data
+
+```{r Tidying and Wrangling Data}
+##Tidying Data
+
+#creating dfs from .csv files
+police_locals <- read_csv("data/police-locals.csv")
+agencies <- read_csv("data/fatal-police-shootings-agencies.csv")
+shootings <- read_csv("data/fatal-police-shootings-data.csv")
+
+#removing old `city` tag from data set that we created when decatenated the city names
+police_locals <- police_locals |>
+  select(-city_old)
+
+# creating `agencies` df with just police departments
+agencies <- agencies |>
+  filter(grepl("department", tolower(name))) |>
+  filter(!grepl("county", tolower(name)))
+
+#creating binned categorical account of if shooting victim was `armed`
+shootings <- shootings |>
+  mutate(armed = case_when(is.na(armed_with) ~ "NO",
+                           armed_with == "unarmed" ~ "NO",
+                           armed_with == "unknown" ~ "NO",
+                           armed_with == "undetermined" ~ "NO",
+                           armed_with == "gun" ~ "YES",
+                           armed_with == "knife" ~ "YES",
+                           armed_with == "blunt_object" ~ "YES",
+                           armed_with == "other" ~ "YES",
+                           armed_with == "replica" ~ "YES",
+                           armed_with == "vehicle" ~ "YES"))
+
+#creating df with only agency `names`, `id`, and `state`
+agencies_ids <- agencies |>
+  select(name, id, state)
+
+#creating df with `city`, `agency`, and `state` info for each shooting
+shooting_agencies <- shootings |>
+  select(city, agency_ids, state)
+
+#changing `shooting` var in `shooting_agencies` df to numeric
+shooting_agencies$agency_ids <- as.numeric(shootings$agency_ids)
+
+#creating df with `city` and `state` info for each agency by joining `agencies_ids` and `shooting_agencies`
+agencies_w_cities <- agencies_ids |>
+  left_join(shooting_agencies, by = c("id" = "agency_ids", "state" = "state")) |>
+  drop_na(city) |>
+  distinct(id, .keep_all = TRUE)
+
+#creating df with census data for each agency by joining `agencies_w_cities` and `police_locals`
+agencies_census <- agencies_w_cities |>
+  full_join(police_locals, by = c("city" = "city", "state" = "state")) |>
+  drop_na(police_force_size) |>
+  distinct(id, .keep_all = TRUE) |>
+  mutate(majority = if_else(all >= 0.5, "TRUE", "FALSE"))
+
+#creating df of only shootings involving agencies within `agencies` df
+shootings_case <- shootings |>
+  right_join(agencies_census, by = c("city" = "city", "state" = "state")) |>
+  select(-agency_ids) |>
+  rename(agency_ids = id.y, id = id.x, agency = name.y, victim = name.x) |>
+  select(-location_precision, -race_source)
+```
+
+#### Counting Shootings
+
+```{r Counting Shootings}
+#count shootings by agency
+shootings_by_agency <- shootings_case |>
+  count(agency)
+
+#find top 25 agencies with the most shootings
+top_25_agencies <- shootings_by_agency |>
+  slice_max(n, n = 25)
+```
+
+#### Mapping Locations of Police-Involved Shootings between 2015 and 2023
+
+```{r shot_map, include=FALSE}
+#mapping Locations of Police-Involved Shootings between 2015 and 2023
+
+#load geo-viz libraries
+library(ggmap)
+library(maps)
+library(mapdata)
+
+#create blank map
+usa <- map_data("usa")
+states <- map_data("state")
+
+#add locations of shootings to maps
+shot_map <- ggplot(data = states) + 
+  geom_polygon(aes(x = long, y = lat, fill = group, group = group), color = "white") + 
+  coord_fixed(1.3) +
+  guides(fill=FALSE) +  # do this to leave off the color legend
+  geom_point(data = shootings_case, aes(x = longitude, y = latitude), color = "black", size = .2) +
+  geom_point(data = shootings_case, aes(x = longitude, y = latitude), color = "red", size = .1) +
+  labs(title = "Locations of Police-Involved Shootings between 2015 and 2023",
+       captions = "This is only includes cities where we have agency census data.",
+       x = "Longitude",
+       y = "Latitude")
+
+```
+
+```{r}
+shot_map
+```
+
+```{r bolstering dfs}
+#creating df with total shootings per agency and census data
+agencies_census <- agencies_census |>
+  left_join(shootings_by_agency, by = c("name" = "agency"))
+
+#creating visualization of comparison Shootings in Cities where a Majority/Minority of Officers Reside
+p0 <- shootings_case |>
+  ggplot(aes(x = majority, fill = armed)) +
+  geom_bar() + 
+  labs(title = "Shootings in Cities where a Majority of Officers Reside",
+       caption = "This is only includes shootings where we have agency census data.",
+       x = "Does a majority a of the total police force live in the city?",
+       y = "Number of fatal shootings",
+       fill = "Victim Armed?")
+```
+
+```{r}
+p0
+```
+
+```{r}
+#calculate mean number of shootings per agency in cities where a majority of officers reside in the city
+majority_mean <- shootings_case |>
+  filter(majority == TRUE) |>
+  count(agency) |>
+  summarize(maj_mean = mean(n))
+
+#calculate mean number of shootings per agency in cities where a minority of officers reside in the city
+minority_mean <- shootings_case |>
+  filter(majority == FALSE) |>
+  count(agency) |>
+  summarize(min_mean = mean(n))
+
+#calculate a difference in means between the `majority` and `minority`
+diff_in_means <- majority_mean - minority_mean
+```
+
+```{r}
+#tidy table
+knitr::kable(head(diff_in_means))
+```
+
+```{r}
+#fit single linear regression model for correlation between percentage of officer residency and number of fatal shootings per agency
+fit <- lm(n ~ all, data = agencies_census)
+
+#add `armed` and `majority` to `shootings_by_agency` df
+shootings_by_agency_census <- shootings_case |>
+  group_by(agency) |>
+  count(armed) |>
+  drop_na(n, armed) |>
+  right_join(agencies_census, by = c("agency" = "name")) |>
+  distinct(armed, .keep_all = TRUE)
+
+shootings_by_agency_census <- shootings_by_agency_census |>
+  select(n.x, armed, all) 
+
+#fit multiple linear regression model for correlation between percentage of officer residency and victim armament and number of fatal shootings per agency
+fit_multi <- lm(n.x ~ all + armed, data = shootings_by_agency_census)
+```
+
+## Results
+
+### Multiple Linear Regression of relationship between percentage of officer residency and number of fatal shootings per agency `fit`
+
+The model equation for `fit` is:
+
+$$
+\text{Number of Fatal Shootings (n)} = 35.7782 - 0.5874 \times \text{Percentage of Officer Residency (all)}
+$$
+
+```{r}
+#tidy `fit`
+p1 <- get_regression_table(fit)
+knitr::kable(head(p1))
+```
+
+Interpretation:
+
+-   The intercept, $35.7782$, is the estimated number of fatal shootings when the percentage of officer in-city residency (`all`) is $0$. For each one-unit increase in the percentage of officer residency, the number of fatal shootings is expected to decrease by $0.5874$ ($-0.5874$) units, assuming all other factors remain constant.
+
+This model suggests that there is a negative association between the percentage of officer residency and the number of fatal shootings. However, it's important to interpret the results in the context of your data and consider potential confounding factors, like whether or not the victim was armed.
+
+```{r}
+#visualize polynomial relationship between percentage of officer residency and number of fatal shootings per agency
+ggplot(data = shootings_by_agency_census, aes(x = all, y = n.x)) +
+  geom_jitter(width = 0.10, height = 0, alpha = 0.45) +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = TRUE) +
+  labs(title = "Number of Shootings on a Scale of Police Force Residency",
+       x = "Percentage of the total police force that lives in the city",
+       y = "Number of fatal shootings in that city")
+```
+
+### Multiple Linear Regression of relationship between percentage of officer residency/victim armament and number of fatal shootings per agency `fit_multi`
+
+The model equation for `fit_multi` considering victim armament (`armed`) is:
+
+$$
+\text{\ of Fatal Shootings (n.x)} = 4.117 + 1.211 \times \text{Percentage of Officer Residency (all)} + 24.921 \times \text{Armed (YES)} 
+$$
+
+```{r}
+#tidy `fit_multi`
+p2 <- get_regression_table(fit_multi)
+knitr::kable(head(p2))
+```
+
+-   The intercept, $4.117$, is the estimated number of fatal shootings where the percentage of officer in-city residency (`all`) is $0$ and the victim was un-armed. **For each one-unit increase in the percentage of in-city officer residency compared to the total force (`all`), we expect an increase of** $1.211$ fatal shootings, assuming the victim's armament status (`armedYES`) remains constant.
+
+-   The coefficient for 'armedYES', $24.921$, indicates that the victim is armed (`armed` is `YES`), **we expect an increase of** $24.921$ fatal shootings compared to when the victim is not armed (`armed` is `No`), assuming the percentage of officer residency (`all`) remains constant.
+
+In summary, the model suggests that the percentage of officer residency and whether the victim is armed are associated with the number of fatal shootings per agency even as we control for victim armament. However, as correlation does not imply causation, and other factors not included in the model may influence the outcomes.
+
+```{r}
+#visualize polynomial relationship between percentage of officer residency and victim armament and number of fatal shootings per agency
+ggplot(data = shootings_by_agency_census, aes(x = all, y = n.x, color = armed)) +
+  geom_jitter(width = 0.10, height = 0, alpha = 0.45) +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = TRUE) +
+  labs(title = "Number of Shootings on a Scale of Police Force Residency",
+       x = "Percentage of the total police force that lives in the city",
+       y = "Number of fatal shootings in that city",
+       color = "Victim Armed?")
+```
+
+```{r Hypothesis Testing for Diff in Mean Total Fatal Shootings between Residency Prop}
+
+#generate null distribution
+null_dist <- agencies_census |>
+  specify(n ~ majority) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+  calculate(stat = "diff in means", order = c("TRUE", "FALSE"))
+
+#compute observed test statistic
+test_stat <- agencies_census |>
+  specify(n ~ majority) |>
+  calculate(stat = "diff in means", order = c("TRUE", "FALSE"))
+
+#visualize p-value
+null_dist |>
+  visualize() +
+  shade_p_value(obs_stat = test_stat, direction = "less")
+
+#compute p-value
+  null_dist |>
+  get_p_value(obs_stat = test_stat, direction = "less")
+
+```
+
+At a significance level of $\alpha = 0.05$, the p-value of $0.248$ suggests that, **there is insufficient evidence to reject the null hypothesis**. In this context, since our null hypothesis asserts that mean total number of fatal shootings per agencies does not differ based on if a majority of the officers live in the city or not, our p-value indicates that, assuming our null is true, the probability of observing our given test statistic (difference in means; $\mu_{maj} − \mu_{min}$) is $-4.92$ is around $25\%$ ($0.248$). Meaning our observed difference in means between the groups is likely to have occurred by random chance.
+
+```{r Hypothesis Testing for Correlation between Total Fatal Shootings and Residency Prop}
+
+#generate null distribution
+null_dist_cor <- agencies_census |>
+  specify(n ~ white) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+  calculate(stat = "correlation")
+
+#compute observed test statistic
+test_stat_cor <- agencies_census |>
+  specify(n ~ white) |>
+  calculate(stat = "correlation")
+
+
+#visualize p-value
+null_dist_cor |>
+  visualize() +
+  shade_p_value(obs_stat = test_stat, direction = "two.sided")
+
+#compute p-value
+null_dist_cor |>
+  get_p_value(obs_stat = test_stat, direction = "two.sided")
+
+```
+
+At a significance level of $\alpha = 0.05$, the p-value of $0.248$ suggests that, there is sufficient evidence to reject the null hypothesis. In this context, since our null hypothesis asserts that there is no relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings, our p-value indicates that, assuming our null is true, the probability of observing our given test statistic (correlation coefficient; $\rho = 0$) is $-0.0470$ is around $0\%$ ($0$). Meaning our observed correlation coefficient likely would not happen if there was no relationship between percentage of officer residency and number of fatal shootings for a given agency.
+
+## Conclusion
+
+### General Conclusions
+
+### Study Limitations
+
+### Improvements for Future Study
+
+## Citations

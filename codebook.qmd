@@ -1,0 +1,44 @@
+---
+title: "Codebook"
+---
+
+## Explanatory Variables
+
+| Name                | Description                                                             |
+|-------------------------|-----------------------------------------------|
+| `city`              | U.S. city                                                               |
+| `police_force_size` | Number of police officers serving that city                             |
+| `all`               | Percentage of the total police force that lives in the city             |
+| `white`             | Percentage of white (non-Hispanic) police officers who live in the city |
+| `non-white`         | Percentage of non-white police officers who live in the city            |
+| `black`             | Percentage of black police officers who live in the city                |
+| `hispanic`          | Percentage of Hispanic police officers who live in the city             |
+| `asian`             | Percentage of Asian police officers who live in the city                |
+
+### Incident Information
+
+| Name          | Description                                                                                                                                                                                                                                                                 |
+|-------------------------|------------------------------------------------|
+| `id`          | A unique identifier for each fatal police shooting incident.                                                                                                                                                                                                                |
+| `date`        | The date of the fatal shooting.                                                                                                                                                                                                                                             |
+| `body_camera` | Whether news reports have indicated an officer was wearing a body camera and it may have recorded some portion of the incident.                                                                                                                                             |
+| `city`        | The municipality where the fatal shooting took place                                                                                                                                                                                                                        |
+| `county`      | County where the fatal shooting took place.                                                                                                                                                                                                                                 |
+| `state`       | The two-letter postal code abbreviation for the state in which the fatal shooting took place.                                                                                                                                                                               |
+| `latitude`    | The latitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses. Please note that the precision and accuracy of incident coordinates varies depending on the precision of the input address which is often only available at the block level. |
+| `longitude`   | The longitude location of the shooting expressed as WGS84 coordinates, geocoded from addresses.                                                                                                                                                                             |
+
+### Agency Information
+
+|         | Description                           |
+|---------|---------------------------------------|
+| `id`    | Department Database Id                |
+| `name`  | Department Name                       |
+| `state` | State in which the agency is located. |
+
+## Project thoughts
+
+I am interested in exploring data related to...
+
+-   Political Extremism
+-   Black American Opinion
