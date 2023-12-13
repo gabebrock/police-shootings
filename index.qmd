@@ -339,7 +339,6 @@ test_stat_cor <- agencies_census |>
   specify(n ~ white) |>
   calculate(stat = "correlation")
 
-
 #visualize p-value
 null_dist_cor |>
   visualize() +
