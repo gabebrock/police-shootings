@@ -272,7 +272,7 @@ ggplot(data = shootings_by_agency_census, aes(x = all, y = n.x)) +
 The model equation for `fit_multi` considering victim armament (`armed`) is:
 
 $$
-\text{\ of Fatal Shootings (n.x)} = 4.117 + 1.211 \times \text{Percentage of Officer Residency (all)} + 24.921 \times \text{Armed (YES)} 
+\text{Number of Fatal Shootings (n.x)} = 4.117 + 1.211 \times \text{Percentage of Officer Residency (all)} + 24.921 \times \text{Armed (YES)} 
 $$
 
 ```{r}
@@ -281,9 +281,9 @@ p2 <- get_regression_table(fit_multi)
 knitr::kable(head(p2))
 ```
 
--   The intercept, $4.117$, is the estimated number of fatal shootings where the percentage of officer in-city residency (`all`) is $0$ and the victim was un-armed. **For each one-unit increase in the percentage of in-city officer residency compared to the total force (`all`), we expect an increase of** $1.211$ fatal shootings, assuming the victim's armament status (`armedYES`) remains constant.
+-   The intercept, $4.117$, is the estimated number of fatal shootings where the percentage of officer in-city residency (`all`) is $0$ and the victim was un-armed. **For each one-unit increase in the percentage of in-city officer residency compared to the total force (`all`), we expect an increase of** $1.211$ fatal shootings, assuming the victim's armament status (`armed:YES`) remains constant.
 
--   The coefficient for 'armedYES', $24.921$, indicates that the victim is armed (`armed` is `YES`), **we expect an increase of** $24.921$ fatal shootings compared to when the victim is not armed (`armed` is `No`), assuming the percentage of officer residency (`all`) remains constant.
+-   The coefficient for 'armedYES', $24.921$, indicates that the victim is armed (`armed:YES`), **we expect an increase of** $24.921$ fatal shootings compared to when the victim is not armed (`armed` is `No`), assuming the percentage of officer residency (`all`) remains constant.
 
 In summary, the model suggests that the percentage of officer residency and whether the victim is armed are associated with the number of fatal shootings per agency even as we control for victim armament. However, as correlation does not imply causation, and other factors not included in the model may influence the outcomes.
 
@@ -357,8 +357,24 @@ At a significance level of $\alpha = 0.05$, the p-value of $0.248$ suggests that
 
 ### General Conclusions
 
-### Study Limitations
+This comprehensive case study delves into the complex interplay between police force in-city residence and fatal police shootings, utilizing a data-driven approach to unearth patterns and insights within the realm of law enforcement agencies. Focused on the residency status of police officers in the cities they serve, the study scrutinizes whether this factor is correlated with the occurrence of fatal police shootings. Covering the years 2015 to 2023 and incorporating information on police agencies involved in at least one fatal shooting, the research employs advanced statistical methods and machine learning techniques to provide a nuanced understanding of the phenomenon.
+
+### Key Findings
+
+The analysis reveals a negative association between the percentage of officer residency in a city and the number of fatal shootings, suggesting that, on average, a higher proportion of in-city officer residency is associated with fewer fatal police shootings. However, correlation is not equal to causation so we conducted a multiple linear regression. When controlling for victim armament, the study identifies a complex relationship. **While an increase in the percentage of officer residency is associated with fewer fatal shootings, the presence of an armed victim is linked to a significant increase in fatal shootings.**
+
+Our hypothesis tests provide insights into the statistical significance of the observed relationships; a difference in mean number of shootings per agency in cities where a majority or minority of officers reside in the city and the nominal relationship (correlation) between an increasing proportion of in-city officer residency and number of fatal police shooting death. **The first test suggests that there is insufficient evidence to reject the null hypothesis regarding the difference in mean total fatal shootings between agencies with a majority and minority of officers residing in the city. The second test indicates a significant relationship between the percentage of officer residency and the number of fatal shootings.**
+
+### Limitations and Considerations
+
+It's essential to acknowledge the limitations of this study. The analysis relies on available data, and causation cannot be inferred from correlation. Factors beyond the scope of this study may influence fatal police shootings, emphasizing the need for a holistic approach to police reform.
+
+### Policy Recommendations
+
+The findings of this case study carry substantial implications for policy-making, police training, and community relations. The evidence suggests that fostering a higher percentage of officer residency in the communities they police may contribute to a reduction in fatal police shootings. However, it's crucial to consider other influential factors, such as victim armament, when formulating comprehensive policies.
+
+Implement measures to enhance transparency and accountability within law enforcement agencies, including the regular monitoring of fatal shooting incidents and the factors influencing them. Encourage community policing strategies that promote stronger bonds between officers and the communities they serve. Initiatives to increase the percentage of officers residing in their assigned cities may contribute to building trust. Prioritize training programs that focus on de-escalation techniques and handling situations involving armed individuals. This can mitigate the escalation of incidents and reduce the likelihood of fatal outcomes. Policy makers and researchers should also promote ongoing research and data collection to monitor trends and assess the effectiveness of implemented strategies. Continued analysis will help refine policies and ensure adaptability to evolving community needs.
 
 ### Improvements for Future Study
 
-## Citations
+In conclusion, this case study contributes to the ongoing discourse on police reform by providing evidence-based insights into the relationship between police residence and fatal police shootings. By addressing these critical issues, we aspire to foster safer, more resilient communities and facilitate positive transformations in law enforcement practices.
