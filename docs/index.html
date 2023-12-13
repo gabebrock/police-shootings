@@ -160,10 +160,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
   <ul class="collapse">
   <li><a href="#general-conclusions" id="toc-general-conclusions" class="nav-link" data-scroll-target="#general-conclusions">General Conclusions</a></li>
-  <li><a href="#study-limitations" id="toc-study-limitations" class="nav-link" data-scroll-target="#study-limitations">Study Limitations</a></li>
+  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
+  <li><a href="#limitations-and-considerations" id="toc-limitations-and-considerations" class="nav-link" data-scroll-target="#limitations-and-considerations">Limitations and Considerations</a></li>
+  <li><a href="#policy-recommendations" id="toc-policy-recommendations" class="nav-link" data-scroll-target="#policy-recommendations">Policy Recommendations</a></li>
   <li><a href="#improvements-for-future-study" id="toc-improvements-for-future-study" class="nav-link" data-scroll-target="#improvements-for-future-study">Improvements for Future Study</a></li>
   </ul></li>
-  <li><a href="#citations" id="toc-citations" class="nav-link" data-scroll-target="#citations">Citations</a></li>
   </ul>
 </nav>
     </div>
@@ -495,7 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="multiple-linear-regression-of-relationship-between-percentage-of-officer-residencyvictim-armament-and-number-of-fatal-shootings-per-agency-fit_multi">Multiple Linear Regression of relationship between percentage of officer residency/victim armament and number of fatal shootings per agency <code>fit_multi</code></h3>
 <p>The model equation for <code>fit_multi</code> considering victim armament (<code>armed</code>) is:</p>
 <p><span class="math display">\[
-\text{\ of Fatal Shootings (n.x)} = 4.117 + 1.211 \times \text{Percentage of Officer Residency (all)} + 24.921 \times \text{Armed (YES)}
+\text{Number of Fatal Shootings (n.x)} = 4.117 + 1.211 \times \text{Percentage of Officer Residency (all)} + 24.921 \times \text{Armed (YES)}
 \]</span></p>
 <div class="cell">
 <details>
@@ -559,8 +560,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <ul>
-<li><p>The intercept, <span class="math inline">\(4.117\)</span>, is the estimated number of fatal shootings where the percentage of officer in-city residency (<code>all</code>) is <span class="math inline">\(0\)</span> and the victim was un-armed. <strong>For each one-unit increase in the percentage of in-city officer residency compared to the total force (<code>all</code>), we expect an increase of</strong> <span class="math inline">\(1.211\)</span> fatal shootings, assuming the victim’s armament status (<code>armedYES</code>) remains constant.</p></li>
-<li><p>The coefficient for ‘armedYES’, <span class="math inline">\(24.921\)</span>, indicates that the victim is armed (<code>armed</code> is <code>YES</code>), <strong>we expect an increase of</strong> <span class="math inline">\(24.921\)</span> fatal shootings compared to when the victim is not armed (<code>armed</code> is <code>No</code>), assuming the percentage of officer residency (<code>all</code>) remains constant.</p></li>
+<li><p>The intercept, <span class="math inline">\(4.117\)</span>, is the estimated number of fatal shootings where the percentage of officer in-city residency (<code>all</code>) is <span class="math inline">\(0\)</span> and the victim was un-armed. <strong>For each one-unit increase in the percentage of in-city officer residency compared to the total force (<code>all</code>), we expect an increase of</strong> <span class="math inline">\(1.211\)</span> fatal shootings, assuming the victim’s armament status (<code>armed:YES</code>) remains constant.</p></li>
+<li><p>The coefficient for ‘armedYES’, <span class="math inline">\(24.921\)</span>, indicates that the victim is armed (<code>armed:YES</code>), <strong>we expect an increase of</strong> <span class="math inline">\(24.921\)</span> fatal shootings compared to when the victim is not armed (<code>armed</code> is <code>No</code>), assuming the percentage of officer residency (<code>all</code>) remains constant.</p></li>
 </ul>
 <p>In summary, the model suggests that the percentage of officer residency and whether the victim is armed are associated with the number of fatal shootings per agency even as we control for victim armament. However, as correlation does not imply causation, and other factors not included in the model may influence the outcomes.</p>
 <div class="cell">
@@ -612,7 +613,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 1 × 1
   p_value
     &lt;dbl&gt;
-1   0.278</code></pre>
+1   0.272</code></pre>
 </div>
 </div>
 <p>At a significance level of <span class="math inline">\(\alpha = 0.05\)</span>, the p-value of <span class="math inline">\(0.248\)</span> suggests that, <strong>there is insufficient evidence to reject the null hypothesis</strong>. In this context, since our null hypothesis asserts that mean total number of fatal shootings per agencies does not differ based on if a majority of the officers live in the city or not, our p-value indicates that, assuming our null is true, the probability of observing our given test statistic (difference in means; <span class="math inline">\(\mu_{maj} − \mu_{min}\)</span>) is <span class="math inline">\(-4.92\)</span> is around <span class="math inline">\(25\%\)</span> (<span class="math inline">\(0.248\)</span>). Meaning our observed difference in means between the groups is likely to have occurred by random chance.</p>
@@ -660,18 +661,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <section id="general-conclusions" class="level3">
 <h3 class="anchored" data-anchor-id="general-conclusions">General Conclusions</h3>
+<p>This comprehensive case study delves into the complex interplay between police force in-city residence and fatal police shootings, utilizing a data-driven approach to unearth patterns and insights within the realm of law enforcement agencies. Focused on the residency status of police officers in the cities they serve, the study scrutinizes whether this factor is correlated with the occurrence of fatal police shootings. Covering the years 2015 to 2023 and incorporating information on police agencies involved in at least one fatal shooting, the research employs advanced statistical methods and machine learning techniques to provide a nuanced understanding of the phenomenon.</p>
 </section>
-<section id="study-limitations" class="level3">
-<h3 class="anchored" data-anchor-id="study-limitations">Study Limitations</h3>
+<section id="key-findings" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings">Key Findings</h3>
+<p>The analysis reveals a negative association between the percentage of officer residency in a city and the number of fatal shootings, suggesting that, on average, a higher proportion of in-city officer residency is associated with fewer fatal police shootings. However, correlation is not equal to causation so we conducted a multiple linear regression. When controlling for victim armament, the study identifies a complex relationship. <strong>While an increase in the percentage of officer residency is associated with fewer fatal shootings, the presence of an armed victim is linked to a significant increase in fatal shootings.</strong></p>
+<p>Our hypothesis tests provide insights into the statistical significance of the observed relationships; a difference in mean number of shootings per agency in cities where a majority or minority of officers reside in the city and the nominal relationship (correlation) between an increasing proportion of in-city officer residency and number of fatal police shooting death. <strong>The first test suggests that there is insufficient evidence to reject the null hypothesis regarding the difference in mean total fatal shootings between agencies with a majority and minority of officers residing in the city. The second test indicates a significant relationship between the percentage of officer residency and the number of fatal shootings.</strong></p>
+</section>
+<section id="limitations-and-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations-and-considerations">Limitations and Considerations</h3>
+<p>It’s essential to acknowledge the limitations of this study. The analysis relies on available data, and causation cannot be inferred from correlation. Factors beyond the scope of this study may influence fatal police shootings, emphasizing the need for a holistic approach to police reform.</p>
+</section>
+<section id="policy-recommendations" class="level3">
+<h3 class="anchored" data-anchor-id="policy-recommendations">Policy Recommendations</h3>
+<p>The findings of this case study carry substantial implications for policy-making, police training, and community relations. The evidence suggests that fostering a higher percentage of officer residency in the communities they police may contribute to a reduction in fatal police shootings. However, it’s crucial to consider other influential factors, such as victim armament, when formulating comprehensive policies.</p>
+<p>Implement measures to enhance transparency and accountability within law enforcement agencies, including the regular monitoring of fatal shooting incidents and the factors influencing them. Encourage community policing strategies that promote stronger bonds between officers and the communities they serve. Initiatives to increase the percentage of officers residing in their assigned cities may contribute to building trust. Prioritize training programs that focus on de-escalation techniques and handling situations involving armed individuals. This can mitigate the escalation of incidents and reduce the likelihood of fatal outcomes. Policy makers and researchers should also promote ongoing research and data collection to monitor trends and assess the effectiveness of implemented strategies. Continued analysis will help refine policies and ensure adaptability to evolving community needs.</p>
 </section>
 <section id="improvements-for-future-study" class="level3">
 <h3 class="anchored" data-anchor-id="improvements-for-future-study">Improvements for Future Study</h3>
-</section>
-</section>
-<section id="citations" class="level2">
-<h2 class="anchored" data-anchor-id="citations">Citations</h2>
+<p>In conclusion, this case study contributes to the ongoing discourse on police reform by providing evidence-based insights into the relationship between police residence and fatal police shootings. By addressing these critical issues, we aspire to foster safer, more resilient communities and facilitate positive transformations in law enforcement practices.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
