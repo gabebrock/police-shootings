@@ -7,9 +7,8 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: codebook.qmd
-        text: Codebook
       - background.qmd
+      - codebook.qmd
       - data.qmd
 
 format:
