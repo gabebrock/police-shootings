@@ -388,7 +388,7 @@ The accuracy and completeness of the data used in the analysis are dependent on 
 
 The study may not account for geographical variations in policing practices. Policing approaches can differ significantly between urban and rural areas, and this variability might affect the observed relationships. The analysis does not control for the population size of the cities being studied. Fatal shootings per agency per capita might provide a more nuanced understanding of the impact on communities. While the study considers the victim's armament status, the context of each shooting, such as the immediacy of threat and the perceived level of danger, is not fully explored. This nuance could impact the outcomes.
 
-If we had more time, it would be wise to recompile data with information from the 2020 census. It would also be wise to control for city population in future studies, `fatal shooting per agency per capita`.
+If we had more time, it would be wise to recompile data with information from the 2020 census. It would also be wise to control for city population in future studies, `fatal shootings per capita`.
 
 ### Policy Recommendations
 
