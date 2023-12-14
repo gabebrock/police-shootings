@@ -161,9 +161,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#general-conclusions" id="toc-general-conclusions" class="nav-link" data-scroll-target="#general-conclusions">General Conclusions</a></li>
   <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
-  <li><a href="#limitations-and-considerations" id="toc-limitations-and-considerations" class="nav-link" data-scroll-target="#limitations-and-considerations">Limitations and Considerations</a></li>
+  <li><a href="#limitations-and-considerations-and-improvements-for-future-study" id="toc-limitations-and-considerations-and-improvements-for-future-study" class="nav-link" data-scroll-target="#limitations-and-considerations-and-improvements-for-future-study">Limitations and Considerations and Improvements for Future Study</a></li>
   <li><a href="#policy-recommendations" id="toc-policy-recommendations" class="nav-link" data-scroll-target="#policy-recommendations">Policy Recommendations</a></li>
-  <li><a href="#improvements-for-future-study" id="toc-improvements-for-future-study" class="nav-link" data-scroll-target="#improvements-for-future-study">Improvements for Future Study</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -336,7 +335,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"This is only includes shootings where we have agency census data."</span>,</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Does a majority a of the total police force live in the city?"</span>,</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of fatal shootings"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Victim Armed?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Victim Armed?"</span>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">NO =</span> <span class="st">"Red"</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                               <span class="at">YES =</span> <span class="st">"Yellow"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -569,12 +570,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#visualize polynomial relationship between percentage of officer residency and victim armament and number of fatal shootings per agency</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> shootings_by_agency_census, <span class="fu">aes</span>(<span class="at">x =</span> all, <span class="at">y =</span> n.x, <span class="at">color =</span> armed)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.10</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">alpha =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.10</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>), <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Shootings on a Scale of Police Force Residency"</span>,</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Percentage of the total police force that lives in the city"</span>,</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of fatal shootings in that city"</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Victim Armed?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Victim Armed?"</span>) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">NO =</span> <span class="st">"Red"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                               <span class="at">YES =</span> <span class="st">"Yellow3"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
@@ -606,52 +609,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compute p-value</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  null_dist <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> test_stat, <span class="at">direction =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  p_diff <span class="ot">&lt;-</span> null_dist <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> test_stat, <span class="at">direction =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  p_value
-    &lt;dbl&gt;
-1   0.272</code></pre>
+</div>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#tidy table</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(p_diff))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">p_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.245</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
+<pre><code></code></pre>
 <p>At a significance level of <span class="math inline">\(\alpha = 0.05\)</span>, the p-value of <span class="math inline">\(0.248\)</span> suggests that, <strong>there is insufficient evidence to reject the null hypothesis</strong>. In this context, since our null hypothesis asserts that mean total number of fatal shootings per agencies does not differ based on if a majority of the officers live in the city or not, our p-value indicates that, assuming our null is true, the probability of observing our given test statistic (difference in means; <span class="math inline">\(\mu_{maj} − \mu_{min}\)</span>) is <span class="math inline">\(-4.92\)</span> is around <span class="math inline">\(25\%\)</span> (<span class="math inline">\(0.248\)</span>). Meaning our observed difference in means between the groups is likely to have occurred by random chance.</p>
 <div class="cell">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#generate null distribution</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>null_dist_cor <span class="ot">&lt;-</span> agencies_census <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(n <span class="sc">~</span> white) <span class="sc">|&gt;</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"correlation"</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#compute observed test statistic</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>test_stat_cor <span class="ot">&lt;-</span> agencies_census <span class="sc">|&gt;</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(n <span class="sc">~</span> white) <span class="sc">|&gt;</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"correlation"</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#visualize p-value</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>null_dist_cor <span class="sc">|&gt;</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> test_stat, <span class="at">direction =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#generate null distribution</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>null_dist_cor <span class="ot">&lt;-</span> agencies_census <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(n <span class="sc">~</span> white) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"correlation"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#compute observed test statistic</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>test_stat_cor <span class="ot">&lt;-</span> agencies_census <span class="sc">|&gt;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(n <span class="sc">~</span> white) <span class="sc">|&gt;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"correlation"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#visualize p-value</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>null_dist_cor <span class="sc">|&gt;</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> test_stat, <span class="at">direction =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/Hypothesis Testing for Correlation between Total Fatal Shootings and Residency Prop-1.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compute p-value</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>null_dist_cor <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> test_stat, <span class="at">direction =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compute p-value</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>p_cor <span class="ot">&lt;-</span> null_dist_cor <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> test_stat, <span class="at">direction =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  p_value
-    &lt;dbl&gt;
-1       0</code></pre>
+</div>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#tidy table</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(p_cor))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">p_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>At a significance level of <span class="math inline">\(\alpha = 0.05\)</span>, the p-value of <span class="math inline">\(0.248\)</span> suggests that, there is sufficient evidence to reject the null hypothesis. In this context, since our null hypothesis asserts that there is no relationship between percentage of the total police force that lives in the city they serve and number of fatal shootings, our p-value indicates that, assuming our null is true, the probability of observing our given test statistic (correlation coefficient; <span class="math inline">\(\rho = 0\)</span>) is <span class="math inline">\(-0.0470\)</span> is around <span class="math inline">\(0\%\)</span> (<span class="math inline">\(0\)</span>). Meaning our observed correlation coefficient likely would not happen if there was no relationship between percentage of officer residency and number of fatal shootings for a given agency.</p>
@@ -668,17 +701,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The analysis reveals a negative association between the percentage of officer residency in a city and the number of fatal shootings, suggesting that, on average, a higher proportion of in-city officer residency is associated with fewer fatal police shootings. However, correlation is not equal to causation so we conducted a multiple linear regression. When controlling for victim armament, the study identifies a complex relationship. <strong>While an increase in the percentage of officer residency is associated with fewer fatal shootings, the presence of an armed victim is linked to a significant increase in fatal shootings.</strong></p>
 <p>Our hypothesis tests provide insights into the statistical significance of the observed relationships; a difference in mean number of shootings per agency in cities where a majority or minority of officers reside in the city and the nominal relationship (correlation) between an increasing proportion of in-city officer residency and number of fatal police shooting death. <strong>The first test suggests that there is insufficient evidence to reject the null hypothesis regarding the difference in mean total fatal shootings between agencies with a majority and minority of officers residing in the city. The second test indicates a significant relationship between the percentage of officer residency and the number of fatal shootings.</strong></p>
 </section>
-<section id="limitations-and-considerations" class="level3">
-<h3 class="anchored" data-anchor-id="limitations-and-considerations">Limitations and Considerations</h3>
+<section id="limitations-and-considerations-and-improvements-for-future-study" class="level3">
+<h3 class="anchored" data-anchor-id="limitations-and-considerations-and-improvements-for-future-study">Limitations and Considerations and Improvements for Future Study</h3>
 <p>It’s essential to acknowledge the limitations of this study. The analysis relies on available data, and causation cannot be inferred from correlation. Factors beyond the scope of this study may influence fatal police shootings, emphasizing the need for a holistic approach to police reform.</p>
+<p>It would also be wise to recompile data with information from the 2020 census. It would also be wise to control for city population in future studies, <code>fatal shooting per agency per capita</code>.</p>
 </section>
 <section id="policy-recommendations" class="level3">
 <h3 class="anchored" data-anchor-id="policy-recommendations">Policy Recommendations</h3>
 <p>The findings of this case study carry substantial implications for policy-making, police training, and community relations. The evidence suggests that fostering a higher percentage of officer residency in the communities they police may contribute to a reduction in fatal police shootings. However, it’s crucial to consider other influential factors, such as victim armament, when formulating comprehensive policies.</p>
 <p>Implement measures to enhance transparency and accountability within law enforcement agencies, including the regular monitoring of fatal shooting incidents and the factors influencing them. Encourage community policing strategies that promote stronger bonds between officers and the communities they serve. Initiatives to increase the percentage of officers residing in their assigned cities may contribute to building trust. Prioritize training programs that focus on de-escalation techniques and handling situations involving armed individuals. This can mitigate the escalation of incidents and reduce the likelihood of fatal outcomes. Policy makers and researchers should also promote ongoing research and data collection to monitor trends and assess the effectiveness of implemented strategies. Continued analysis will help refine policies and ensure adaptability to evolving community needs.</p>
-</section>
-<section id="improvements-for-future-study" class="level3">
-<h3 class="anchored" data-anchor-id="improvements-for-future-study">Improvements for Future Study</h3>
 <p>In conclusion, this case study contributes to the ongoing discourse on police reform by providing evidence-based insights into the relationship between police residence and fatal police shootings. By addressing these critical issues, we aspire to foster safer, more resilient communities and facilitate positive transformations in law enforcement practices.</p>
 
 
